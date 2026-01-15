@@ -8,7 +8,7 @@
     define('BASE_PATH', __DIR__ . '/');
 
     // BASE_URL → browser links (CSS, JS, images)
-    define('BASE_URL', '/FYP/');
+    define('BASE_URL', '/FYP-Code/');
 
     // Asset URLs
     define('CSS_PATH', BASE_URL . 'static/css/');

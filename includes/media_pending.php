@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $user_id = $_SESSION['user_id'];
+    $project_id = $_SESSION['project_id'];
 
     if (isset($_POST['file_id'])) {
         $file_id = (int) $_POST['file_id'];
@@ -40,10 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Define position-category approval mapping
         $position_approval = [
             'Writer'    => ['documents'],
-            'Artist'    => ['images'],
+            'Artist'    => ['images', 'models'],
             'Musician'  => ['audio'],
             'Cameraman' => ['videos'],
-            'Designer'  => ['models']
+            'Designer'  => ['models', 'images']
         ];
 
         // Owner / co-owner can approve anything
@@ -51,26 +52,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         (isset($position_approval[$user_position]) && in_array($category, $position_approval[$user_position], true));
 
         if (!$can_approve) {
-            echo json_encode(['error' => 'You do not have permission to approve/reject this file']);
-            exit;
+            echo "<script>alert('You do not have permission to approve/reject this file');</script>";
+            header("Location: media.php?type=images&project_id=$project_id");
         }
-
-        // Handle approval or rejection
-        if (isset($_POST['approved'])) {
+        elseif (isset($_POST['approved']) && $can_approve) {
             $status = 'approved';
             $stmt = $conn->prepare("UPDATE user_files SET file_approval = ? WHERE file_id = ?");
             $stmt->bind_param("si", $status, $file_id);
             $stmt->execute();
             $stmt->close();
-        } elseif (isset($_POST['rejected'])) {
+
+            echo "<script>alert('Asset approved!');</script>";
+            header("Location: media.php?type=images&project_id=$project_id");
+
+        } elseif (isset($_POST['rejected']) && $can_approve) {
             $stmt = $conn->prepare("DELETE FROM user_files WHERE file_id = ?");
             $stmt->bind_param("i", $file_id);
             $stmt->execute();
             $stmt->close();
-        }
 
-        header("Location: " . $_SERVER['REQUEST_URI']);
-        exit;
+            echo "<script>alert('Asset rejected!');</script>";
+            header("Location: media.php?type=images&project_id=$project_id");
+        }
     }
 }
 

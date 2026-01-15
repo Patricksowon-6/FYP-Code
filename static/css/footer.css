@@ -1,0 +1,67 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+/* Footer */
+
+footer{
+    padding-top: 70px;
+    height: 400px;
+    align-items: center;
+    display:inline-flex;
+    justify-content: left;
+}
+
+.sign_up{
+    margin-left: 200px;
+    border-radius: 15px;
+    color: white;
+}
+
+.social{
+    display: inline-block;
+    color: white;
+}
+
+.registrationForm{
+    border-radius: 15px;
+}
+
+.details{
+    width: 400px;
+    height: 40px;
+    border-radius: 30px;
+    padding-left: 15px;
+    justify-content: right;
+    display: inline;
+    align-items: center;
+}
+
+.other_links a{
+    margin-left: 170px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+}
+
+.other_links h1{
+    margin-left: 150px;
+    font-size: 50px;
+    color: white;
+}
+
+#button{
+    text-decoration: none;
+    padding: 5px;
+    background-color: aqua;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    transition: .5s;
+    cursor: pointer;
+}  

@@ -1,0 +1,392 @@
+* {
+    font-family: 'monospace';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container */
+.container {
+    display: flex;
+    height: 100vh;
+    margin-top: 60px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: #1f2937;
+    color: white;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-btn {
+    background: #212441;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background: #232f9c;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    padding: 12px;
+    background: #374151;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.sidebar li:hover {
+    background: #4b5563;
+}
+
+#dashboardTitle{
+    color: white;
+}
+
+/* Main Panel */
+.main-panel {
+    flex: 1;
+    padding: 20px;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.asset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* Increased from 180 → 260 */
+    gap: 28px; /* Bigger spacing */
+    margin-top: 20px;
+}
+
+.asset-card {
+    background: #ffffff;
+    padding: 18px;
+    border-radius: 14px; /* More modern */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    text-align: center;
+    border: 1px solid #e6e6e6;
+}
+
+.asset-card:hover {
+    transform: scale(1.06);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+}
+
+.asset-card img {
+    width: 100%;
+    height: 200px; /* Increased from 120 → 200 */
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.asset-card-title {
+    font-size: 1.1rem; 
+    font-weight: 600;
+    color: #222;
+    margin-top: 8px;
+}
+
+.asset-card-type {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 4px;
+}
+
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    left: 0; 
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background: white;
+    margin: 80px auto;
+    padding: 25px;
+    width: 400px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.modal-content.large {
+    width: 70%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 26px;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.save-btn {
+    width: 100%;
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background: #1d4ed8;
+}
+
+.preview-frame {
+    width: 100%;
+    height: 80vh;
+    border: none;
+}
+
+
+
+/* Wider modal for asset browser */
+.modal-content.wide {
+    width: 600px;
+}
+
+/* Choice buttons */
+.asset-choice {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0 25px;
+}
+
+.choice-btn {
+    flex: 1;
+    padding: 12px;
+    background: #073a7a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.choice-btn:hover {
+    background: #0a4c9b;
+}
+
+/* Sections */
+.section.hidden { display: none; }
+
+/* Category List */
+.asset-category-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.asset-cat-btn {
+    padding: 10px;
+    background: #0a2d57;
+    border: none;
+    border-radius: 6px;
+    text-align: left;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.asset-cat-btn i {
+    margin-right: 8px;
+}
+
+.asset-cat-btn:hover {
+    background: #0f3d7d;
+}
+
+/* Existing files container */
+.existing-files {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 120px);
+    gap: 16px;
+}
+
+
+
+.placeholder {
+    opacity: 0.7;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Upload form elements */
+#uploadNewSection input,
+#uploadNewSection textarea,
+#uploadNewSection select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    border-radius: 6px;
+    border: 1px solid black;
+}
+
+.upload-btn {
+    margin-top: 15px;
+    background: #1da851;
+}
+
+.upload-btn:hover {
+    background: #22c45c;
+}
+
+
+
+
+
+
+
+
+
+
+/* --- Previews Container --- */
+.previews {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* --- Individual Preview --- */
+.preview {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #3a3a3a;
+    box-shadow: 6px 6px 15px rgba(0,0,0,0.3),
+                -4px -4px 10px rgba(70,70,70,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.preview img,
+.preview video,
+.preview audio {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none;
+    border-radius: 15px;
+}
+
+/* Hover effect */
+.preview:hover {
+    transform: scale(1.08);
+    box-shadow: 8px 8px 20px rgba(0,0,0,0.5),
+                -4px -4px 15px rgba(70,70,70,0.2);
+}
+
+/* Overlay for remove button */
+.preview::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 15px;
+}
+
+.preview:hover::after {
+    opacity: 1;
+}
+
+.preview button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 3;
+    background: rgba(255, 50, 50, 0.85);
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 22px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.preview:hover button {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.preview button:hover {
+    background: #ff1a1a;
+    transform: scale(1.2);
+}
+
+.preview {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

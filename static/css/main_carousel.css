@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.slider {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+}
+
+figure {
+    display: flex;
+    width: 550%; /* 10 slides total, each 10% */
+    animation: slide 20s linear infinite;
+}
+
+.slide {
+    flex: 0 0 10%; /* 1/10th of figure */
+    position: relative;
+}
+
+.slide img {
+    width: 100%;
+    height: 500px;
+    object-fit: contain;
+}
+
+.slide h1 {
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 2em;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+/* Animation */
+@keyframes slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* move 5 slides width */
+}

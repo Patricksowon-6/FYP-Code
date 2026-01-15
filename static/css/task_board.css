@@ -1,0 +1,311 @@
+:root {
+  --bg-color: #e2e8f0;
+  --text-color: #404040;
+  --primary-color: #475569;
+  --secondary-color: #cbd5e1;
+  --task-color: #f6f6f6;
+  --task-size: 75px;
+  --confirm-color: #dc2626;
+  --confirm-hover-color: #b91c1c;
+  --cancel-color: #e5e7eb;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+body {
+  background: #0f172a;
+}
+
+/* Container */
+.container {
+  width: min(1500px, 90%);
+  margin: 5rem auto;
+}
+
+.container h1{
+  color: white;
+}
+
+/* Columns */
+.columns {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  min-width: 250px;
+}
+
+/* Column title */
+.column-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--secondary-color);
+  margin-bottom: 0.5rem;
+}
+
+.column-title h3 {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.column-title h3::after {
+  content: attr(data-tasks);
+  background: var(--secondary-color);
+  color: #000;
+  margin-left: 0.25rem;
+  padding: 0 0.25rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+}
+
+/* Tasks */
+.tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: var(--task-size);
+}
+
+.task {
+  background: #38bdf8;
+  color: #fff;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  transition: all 0.2s ease;
+}
+
+.task:hover {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.task.dragging {
+  opacity: 0.5;
+  background: var(--secondary-color);
+  cursor: default;
+}
+
+/* Task menu buttons */
+.task menu button {
+  background: none;
+  border: none;
+  color: #fff;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.task menu button:hover {
+  color: var(--secondary-color);
+}
+
+/* Add task form */
+.task-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.task-form input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #64748b;
+}
+
+.task-form button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.task-form button:hover {
+  background: #1d4ed8;
+}
+
+/* Modal */
+.confirm-modal {
+  border: none;
+  border-radius: 0.25rem;
+  padding: 2rem;
+  top: 50%;
+  left: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.confirm-modal[open] {
+  opacity: 1;
+  transform: translate(-50%, -50%) translateY(0);
+}
+
+.confirm-modal::backdrop {
+  background: rgba(0,0,0,0.25);
+}
+
+.confirm-modal h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.confirm-modal .preview {
+  padding-left: 0.5rem;
+  border-left: 2px solid var(--secondary-color);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.confirm-modal menu {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.confirm-modal button {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 2px -1px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+.confirm-modal button#cancel {
+  border-color: var(--cancel-color);
+  background: var(--cancel-color);
+  color: #000;
+}
+
+.confirm-modal button#confirm {
+  border-color: var(--confirm-color);
+  background: var(--confirm-color);
+  color: #fff;
+}
+
+.confirm-modal button#confirm:hover {
+  border-color: var(--confirm-hover-color);
+  background: var(--confirm-hover-color);
+}
+
+
+body {
+  background: #0f172a;
+  color: var(--text-color);
+}
+
+/* 🔹 Add Task Form */
+.add-task-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.add-task-form input[type="text"],
+.add-task-form input[type="date"],
+.add-task-form select {
+  flex: 1;
+  min-width: 150px;
+  padding: 0.5rem;
+  border: 1px solid #64748b;
+  border-radius: 0.25rem;
+}
+
+.add-task-form button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.add-task-form button:hover {
+  background: #1d4ed8;
+}
+
+/* 🔹 Show deadline */
+.task small.deadline {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.85;
+  margin-top: 0.25rem;
+}
+
+
+
+/* 🔹 Edit Box */
+.edit-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: #f1f5f9;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+}
+
+.edit-box input[type="text"],
+.edit-box input[type="date"] {
+  padding: 0.5rem;
+  border: 1px solid #94a3b8;
+  border-radius: 0.25rem;
+  width: 100%;
+}
+
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.edit-actions button {
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.save-edit {
+  background: #16a34a;
+  color: #fff;
+}
+
+.save-edit:hover {
+  background: #15803d;
+}
+
+.cancel-edit {
+  background: #e5e7eb;
+}
+
+.cancel-edit:hover {
+  background: #d1d5db;
+}

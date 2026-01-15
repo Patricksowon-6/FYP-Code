@@ -1,0 +1,341 @@
+* {
+	box-sizing: border-box;
+	font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+.video {
+	display: inline-block;
+	width: 30%;
+	gap: 3rem 1rem;
+	padding: 3rem 0;
+	margin-top: 100px;
+	margin-left: 300px;
+}
+
+.thumbnail {
+	position: relative;
+	display: flex;
+    cursor: pointer;
+}
+
+.thumbnail-image {
+	width: 500px;
+	height: 400px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.thumbnail-image img {
+    cursor: pointer;
+}
+
+.bottom-section {
+	display: flex;
+	align-items: flex-start;
+	margin-top: 1rem;
+}
+
+.action-buttons a, .action-buttons button{
+	font-size: 30px;
+	padding: 10px;
+	color: white;
+	background: none;
+	border: none;
+}
+
+.person-name, .file-name{
+	color: white;
+}
+
+
+/* button options */
+
+
+.menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Kebab button */
+.kebab-menu summary {
+    list-style: none;
+	color: #fff;
+    cursor: pointer;
+    font-size: 30px;  /* Large clickable dots */
+    padding: 10px 12px;
+}
+
+.kebab-menu summary::-webkit-details-marker {
+    display: none; /* remove default triangle */
+}
+
+/* Dropdown options */
+.kebab-menu ul {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 3px 0;       /* Smaller padding for compact look */
+    margin: 0;
+    list-style: none;
+    width: 100px;         /* narrower width */
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    display: none;
+    z-index: 10;
+}
+
+.kebab-menu[open] ul {
+    display: block;
+}
+
+.kebab-menu ul li {
+    padding: 5px 10px;    /* smaller option height */
+}
+
+.kebab-menu ul li:hover {
+    background-color: #f0f0f0;
+}
+
+.kebab-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    font-size: 14px;       /* smaller text for options */
+}
+
+
+
+
+
+
+/* Audio Box */
+.audio-box, .video-box {
+	width: 340px;
+	background-color: #645e62;
+	border-radius: 15px;
+	padding: 20px;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+	margin-left: 400px;
+	text-align: center;
+	transition: 0.3s;
+    margin-top: 5%;
+}
+.audio-box:hover .video-box:hover {
+	transform: translateY(-5px);
+}
+
+.thumbnail button {
+	background: white;
+	border: none;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	font-size: 24px;
+	cursor: pointer;
+	box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+	transition: 0.2s;
+}
+.thumbnail button:hover {
+	background: #4b6cb7;
+	color: white;
+}
+
+.action-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+}
+.action-buttons a {
+	color: #fff;
+	font-size: 24px;
+	text-decoration: none;
+	transition: 0.2s;
+}
+
+.action-buttons #approve {
+	color: #fff;
+	font-size: 24px;
+    background-color: green;
+    padding: 17px;
+    border-radius: 30px;
+}
+
+.action-buttons #reject {
+	color: #fff;
+	font-size: 24px;
+    background-color: red;
+    padding: 17px;
+    border-radius: 30px;
+}
+
+
+/* Kebab Modal Styles */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0; top: 0;
+	width: 100%; height: 100%;
+	background: rgba(0,0,0,0.6);
+	align-items: center;
+	justify-content: center;
+}
+
+.modal-content {
+	background: white;
+	padding: 25px;
+	border-radius: 10px;
+	width: 400px;
+	text-align: center;
+	position: relative;
+}
+
+.modal-content h2 {
+	margin-bottom: 20px;
+}
+
+.close {
+	position: absolute;
+	right: 15px;
+	top: 10px;
+	font-size: 24px;
+	cursor: pointer;
+	color: #888;
+}
+.close:hover {
+	color: #000;
+}
+
+
+
+
+/* Delete Modal Overlay */
+.modal-overlay {
+  display: none; 
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Modal Box */
+.modal-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px 30px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+/* Buttons */
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.cancel-btn, .confirm-btn {
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  background: #ccc;
+}
+
+.confirm-btn {
+  background: #e53935;
+  color: #fff;
+}
+
+.confirm-btn:hover {
+  background: #c62828;
+}
+
+.delete-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #ff4d4d;
+  font-size: 18px;
+  transition: color 0.2s;
+  z-index: 10; /* ensure it's above surrounding elements */
+  position: relative;
+}
+
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+
+
+
+
+
+
+/* Empty State */
+
+.empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    margin-top: 150px;
+}
+
+.empty-box {
+    text-align: center;
+    background: #0f0876;
+    border: 4px dashed #dcdcdc;
+	color: white;
+    border-radius: 12px;
+    padding: 40px 30px;
+    max-width: 420px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.empty-icon {
+    font-size: 48px;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.empty-box h2 {
+    margin: 10px 0;
+    font-size: 22px;
+}
+
+.empty-box p {
+    color: #fff;
+    margin-bottom: 25px;
+}
+
+.add-asset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #000;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.add-asset-btn:hover {
+    background: #222;
+}

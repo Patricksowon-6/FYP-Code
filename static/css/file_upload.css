@@ -1,0 +1,281 @@
+/* --- Global Styles --- */
+body {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    background: linear-gradient(135deg, #1E1A1D, #2C2A33);
+    color: #fff;
+    min-height: 100vh;
+    transition: background 0.3s ease;
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    color: #f0f0f0;
+}
+
+/* --- Upload Container --- */
+.upload-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 80px;
+}
+
+/* --- Upload Box --- */
+.upload-box {
+    background: #2C2A33;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 8px 8px 20px rgba(0,0,0,0.4),
+                -8px -8px 20px rgba(50,50,50,0.2);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 12px 12px 25px rgba(0,0,0,0.5),
+                -12px -12px 25px rgba(50,50,50,0.2);
+}
+
+/* Heading in box */
+.upload-box h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #f0f0f0;
+}
+
+/* File input */
+.upload-box input[type="file"] {
+    margin-bottom: 15px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    background: #1E1A1D;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-box input[type="file"]:hover {
+    border-color: #888;
+}
+
+/* Drag-and-drop highlight effect */
+.upload-box.dragover {
+    border: 2px dashed #ff8c42;
+    box-shadow: 0 0 20px rgba(255,140,66,0.5);
+}
+
+/* --- Previews Container --- */
+.previews {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* --- Individual Preview --- */
+.preview {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #3a3a3a;
+    box-shadow: 6px 6px 15px rgba(0,0,0,0.3),
+                -4px -4px 10px rgba(70,70,70,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.preview img,
+.preview video,
+.preview audio {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+    border-radius: 15px;
+}
+
+/* Hover effect */
+.preview:hover {
+    transform: scale(1.08);
+    box-shadow: 8px 8px 20px rgba(0,0,0,0.5),
+                -4px -4px 15px rgba(70,70,70,0.2);
+}
+
+/* Overlay for remove button */
+.preview::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 15px;
+}
+
+.preview:hover::after {
+    opacity: 1;
+}
+
+.preview button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 3;
+    background: rgba(255, 50, 50, 0.85);
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 22px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.preview:hover button {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.preview button:hover {
+    background: #ff1a1a;
+    transform: scale(1.2);
+}
+
+.preview {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .upload-container {
+        grid-template-columns: 1fr;
+    }
+    .upload-box {
+        margin: 0 auto;
+    }
+}
+
+
+
+
+
+
+
+/* Modal */
+
+/* Modal Background */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease-in-out;
+}
+
+.modal:not(.hidden) {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Modal Box */
+.modal-content {
+    background: white;
+    padding: 28px 32px;
+    border-radius: 12px;
+    width: 420px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    animation: scaleIn 0.25s ease;
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.modal-content h2 {
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Buttons */
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.btn.cancel {
+    background: #e1e1e1;
+    color: #333;
+}
+
+.btn.cancel:hover {
+    background: #d0d0d0;
+}
+
+.btn.confirm {
+    background: #2f8bfd;
+    color: white;
+}
+
+.btn.confirm:hover {
+    background: #1974e6;
+}

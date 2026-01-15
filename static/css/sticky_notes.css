@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+body {
+	font-family: monospace;
+	margin: 0;
+	background-image: repeating-linear-gradient(to right, transparent 0 50px,  #fff1 50px 51px),
+    repeating-linear-gradient(to bottom, transparent 0 50px, #fff1 50px 51px);
+}
+
+/* === Notes Grid === */
+.notes-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 16px;
+	padding: 20px;
+}
+
+.note {
+	background: #fff;
+	border-radius: 8px;
+	padding: 0;
+	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	margin-top: 3px;
+	flex-direction: column;
+}
+
+.note .note-top {
+	padding: 8px 12px;
+	color: white;
+	font-weight: bold;
+}
+
+.note .note-content {
+	padding: 10px;
+	font-size: 14px;
+	flex-grow: 1;
+}
+
+.note .note-content textarea {
+	width: 100%;
+	border: none;
+	background: transparent;
+	resize: none;
+	font-family: inherit;
+	font-size: 14px;
+	outline: none;
+}
+
+.note .note-footer {
+	padding: 6px 12px;
+	font-size: 12px;
+	color: #555;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.note .close {
+	cursor: pointer;
+	font-weight: bold;
+	color: #444;
+}
+
+/* === Form === */
+form {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 0 20px;
+}
+
+#createBtn {
+	background: #38bdf8;
+	border: none;
+	border-radius: 50%;
+	width: 36px;
+	height: 36px;
+	color: white;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+/* === Modal === */
+.modal-container {
+	background-color: rgba(0, 0, 0, 0.6);
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+}
+
+.modal-container.show-modal {
+	display: flex;
+}
+
+.modal {
+	background-color: #fff;
+	border-radius: 8px;
+	max-width: 400px;
+	width: 90%;
+	animation: fadeIn 0.3s ease;
+	overflow: hidden;
+}
+
+.modal-header {
+	background: #38bdf8;
+	color: white;
+	padding: 10px 15px;
+}
+
+.modal-content {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="color"],
+.modal-content textarea {
+	width: 100%;
+	padding: 8px;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+	font-family: inherit;
+	font-size: 14px;
+}
+
+.confirm-btn {
+	background: #38bdf8;
+	border: none;
+	color: white;
+	padding: 10px 15px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.close-btn {
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	font-size: 24px;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; transform: scale(0.9); }
+	to { opacity: 1; transform: scale(1); }
+}

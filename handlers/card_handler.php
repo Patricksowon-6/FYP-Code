@@ -117,6 +117,7 @@ function getMainCards($project_id) {
             $card['image_url'] = null;
         }
     }
+    unset($card);
 
     return $cards;
 }

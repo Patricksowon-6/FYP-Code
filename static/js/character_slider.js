@@ -1,6 +1,3 @@
-// component_manager.js
-const API_URL = '../handlers/card_handler.php'; // <- adjust path if needed
-
 const list = document.getElementById('list');
 const addCard = document.getElementById('addCard');
 const modal = document.getElementById('editModal');
@@ -23,7 +20,7 @@ typeSelect.addEventListener('change', () => {
 // --- Fetch cards from server
 async function loadCards() {
   try {
-    const res = await fetch(API_URL + '?fetch=1', { credentials: 'same-origin' });
+    const res = await fetch('../handlers/card_handler.php' + '?fetch=1', { credentials: 'same-origin' });
     const cards = await res.json();
     // remove existing cards (except add-card)
     list.querySelectorAll('.item:not(.add-card)').forEach(c => c.remove());
@@ -74,7 +71,7 @@ editForm.addEventListener('submit', async e => {
   if (imgInput.files[0]) formData.append('image', imgInput.files[0]);
 
   try {
-    const res = await fetch(API_URL, {
+    const res = await fetch('../handlers/card_handler.php', {
       method: 'POST',
       body: formData,
       credentials: 'same-origin'
@@ -134,7 +131,7 @@ function createCardElement(data) {
     try {
       const id = card.dataset.id;
       const body = new URLSearchParams({ main_card_id: id });
-      const res = await fetch(API_URL, {
+      const res = await fetch('../handlers/card_handler.php', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: body.toString(),

@@ -3,16 +3,12 @@ require_once __DIR__ . "/../config.php";
 
 header("Content-Type: application/json");
 
-session_start();
 $project_id = $_SESSION['project_id'] ?? 0;
 $user_id = $_SESSION["user_id"] ?? 0;
 
-$action = $_GET["action"] ?? $_POST["action"] ?? null;
+$action = isset($_POST['action']) ? $_POST['action'] : null;
 
-if (!$action) {
-    echo json_encode(["error" => "No action specified"]);
-    exit;
-}
+
 
 /*************************************************************
  1. GET SHOOT DATES
@@ -70,10 +66,12 @@ if ($action === "get_assets_for_shoot") {
             uf.file_id AS id,
             uf.original_name AS title,
             uf.category,
-            CONCAT(?, '/storage/v1/object/public/', uf.path) AS url,
-            CASE WHEN uf.category='images' THEN 'image'
-                 WHEN uf.category='docs' THEN 'pdf'
-                 ELSE 'file'
+            COALESCE(sda.status, 'not_ready') AS status,
+            CONCAT(?, '/storage/v1/object/public/', uf.path) AS public_url,
+            CASE 
+                WHEN uf.category='images' THEN 'image'
+                WHEN uf.category='docs' THEN 'pdf'
+                ELSE 'file'
             END AS type
         FROM shoot_date_assets sda
         JOIN user_files uf ON uf.file_id = sda.file_id
@@ -138,6 +136,42 @@ if ($action === "attach_file") {
     }
     exit;
 }
+
+
+/*************************************************************
+ 6. UPDATE ASSET STATUS
+*************************************************************/
+// if ($action === "update_asset_status") {
+//     // Use the decoded JSON
+//     $asset_id = $input["asset_id"] ?? 0;
+//     $status = $input["status"] ?? null;
+
+//     if (!$asset_id || !$status) {
+//         echo json_encode(["success" => false, "error" => "Missing asset ID or status"]);
+//         exit;
+//     }
+
+//     $allowed = ["ready","in_progress","not_ready"];
+//     if (!in_array($status, $allowed)) {
+//         echo json_encode(["success" => false, "error" => "Invalid status"]);
+//         exit;
+//     }
+
+//     $stmt = $conn->prepare("
+//         UPDATE shoot_date_assets
+//         SET status = ?
+//         WHERE asset_id = ?
+//     ");
+//     $stmt->bind_param("si", $status, $asset_id);
+
+//     if ($stmt->execute()) {
+//         echo json_encode(["success" => true]);
+//     } else {
+//         echo json_encode(["success" => false, "error" => $stmt->error]);
+//     }
+//     exit;
+// }
+
 
 echo json_encode(["error" => "Invalid action"]);
 ?>

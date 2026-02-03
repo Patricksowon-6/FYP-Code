@@ -47,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'Designer'  => ['models', 'images']
         ];
 
-        // Owner / co-owner can approve anything
         $can_approve = ($role === 'Owner' || $role === 'Co_owner') ||
                         (isset($position_approval[$user_position]) && in_array($category, $position_approval[$user_position], true));
 

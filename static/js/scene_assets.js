@@ -88,23 +88,60 @@ document.addEventListener("DOMContentLoaded", () => {
             grid.innerHTML = "";
 
             assets.forEach(asset => {
+                const status = asset.status || "not_ready";
                 const card = document.createElement("div");
-                card.classList.add("asset-card");
+                card.className = `asset-card status-${status}`;
 
-                let thumbSrc;
-
-                if (asset.category === "images") {
-                    thumbSrc = asset.public_url;
-                } else {
-                    thumbSrc = CATEGORY_THUMBS[asset.category] || CATEGORY_THUMBS.other;
-                }
+                let thumbSrc = CATEGORY_THUMBS[asset.category] || CATEGORY_THUMBS.other;
+                if (asset.category === "images") thumbSrc = asset.public_url;
 
                 card.innerHTML = `
+                    <span class="asset-status-badge">
+                        ${status.replace("_", " ").toUpperCase()}
+                    </span>
                     <img src="${thumbSrc}" alt="${asset.title}">
                     <h4>${asset.title}</h4>
+                    <div class="asset-status-buttons" style="margin-top:10px; display:flex; gap:5px;">
+                        <button class="footer-btn ready">Ready</button>
+                        <button class="footer-btn in_progress">In Progress</button>
+                        <button class="footer-btn not_ready">Not Ready</button>
+                    </div>
                 `;
 
-                card.addEventListener("click", () => openPreview(asset));
+                // Preview on click
+                card.querySelector("img, h4").addEventListener("click", () => openPreview(asset));
+
+                // Status button handlers
+                card.querySelectorAll(".footer-btn").forEach(btn => {
+                    btn.addEventListener("click", async (e) => {
+                        e.stopPropagation();
+                        const newStatus = btn.classList[1]; // 'ready', 'in_progress', 'not_ready'
+
+                        const data = new FormData();
+                        data.append('action', 'update_asset_status'); // ✅ required
+                        data.append('asset_id', asset.asset_id);       // asset primary key
+                        data.append('status', newStatus);             // new status
+
+                        try {
+                            const res = await fetch("../handlers/scene_handler.php", {
+                                method: "POST",
+                                body: data
+                            });
+
+                            const result = await res.json();
+                            if (result.success) {
+                                asset.status = newStatus;
+                                card.className = `asset-card status-${newStatus}`;
+                                card.querySelector(".asset-status-badge").textContent = newStatus.replace("_", " ").toUpperCase();
+                            } else {
+                                alert("Failed to update status: " + (result.error ?? ""));
+                            }
+                        } catch (err) {
+                            console.error("Failed to update status:", err);
+                        }
+                    });
+                });
+
                 grid.appendChild(card);
             });
         } catch (err) {

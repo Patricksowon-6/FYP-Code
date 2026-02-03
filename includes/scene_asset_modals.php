@@ -6,14 +6,25 @@
             <h2>Shoot Dates</h2>
             <button id="addShootDateBtn" class="add-btn">+</button>
         </div>
-        <ul style="margin-top: 20px;" id="shootDateList"></ul>
+
+        <!-- Scrollable shoot dates -->
+        <div class="shoot-date-container">
+            <ul id="shootDateList"></ul>
+        </div><br><br>
+
+        <!-- Fixed bottom buttons -->
+        <!-- <div class="sidebar-footer">
+            <button class="footer-btn ready">Ready</button>
+            <button class="footer-btn in_progress">In Progress</button>
+            <button class="footer-btn not_ready">Not Ready</button>
+        </div> -->
     </aside>
+
 
     <!-- Main Dashboard -->
     <main class="main-panel">
         <div class="main-header">
             <h2 id="dashboardTitle">Select a Shoot Date</h2>
-            <!-- <button id="addAssetBtn" class="add-btn">Ready | Not Ready</button> -->
             <button id="addAssetBtn" class="add-btn">+</button>
         </div>
 

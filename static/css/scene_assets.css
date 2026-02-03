@@ -15,10 +15,13 @@
 /* Sidebar */
 .sidebar {
     width: 260px;
+    height: 100vh;
     background: #1f2937;
     color: white;
     padding: 20px;
-    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar-header {
@@ -40,6 +43,13 @@
 .add-btn:hover {
     background: #232f9c;
 }
+
+.shoot-date-container {
+    margin-top: 20px;
+    flex: 0 0 65%;      /* 65% of sidebar height */
+    overflow-y: auto;
+}
+
 
 .sidebar ul {
     list-style: none;
@@ -89,6 +99,8 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     text-align: center;
     border: 1px solid #e6e6e6;
+    position: relative;
+    border-left: 6px solid transparent;
 }
 
 .asset-card:hover {
@@ -431,6 +443,30 @@ input, select {
 }
 
 
+
+
+.footer-btn{
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 30px;
+    font-size: 20px;
+}
+
+.footer-btn.ready {
+    background-color: #16a34a;
+}
+
+.footer-btn.in_progress {
+    background-color: #f59e0b;
+}
+
+.footer-btn.not_ready {
+    background-color: #dc2626;
+}
+
+
+
 @keyframes fadeInUp {
     0% {
         opacity: 0;
@@ -441,3 +477,46 @@ input, select {
         transform: translateY(0);
     }
 }
+
+
+
+
+
+/* =========================
+   ASSET STATUS STYLES
+========================= */
+
+.asset-card {
+    position: relative;
+    border-left: 6px solid transparent;
+}
+
+.asset-card.status-ready {
+    border-left-color: #16a34a;
+    background: #f0fdf4;
+}
+
+.asset-card.status-in_progress {
+    border-left-color: #f59e0b;
+    background: #fffbeb;
+}
+
+.asset-card.status-not_ready {
+    border-left-color: #dc2626;
+    background: #fef2f2;
+}
+
+.asset-status-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: white;
+}
+
+.status-ready .asset-status-badge { background: #16a34a; }
+.status-in_progress .asset-status-badge { background: #f59e0b; }
+.status-not_ready .asset-status-badge { background: #dc2626; }

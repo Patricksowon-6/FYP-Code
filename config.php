@@ -240,7 +240,7 @@ CREATE TABLE IF NOT EXISTS shoot_date_assets (
     shoot_date_id BIGINT UNSIGNED NOT NULL,
     file_id BIGINT UNSIGNED NOT NULL,
     user_id BIGINT UNSIGNED NOT NULL,
-    status ENUM('ready', 'not_ready') DEFAULT 'not_ready',
+    status ENUM('ready', 'not_ready', 'in_progress') DEFAULT 'not_ready',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (shoot_date_id) REFERENCES shoot_dates(shoot_date_id) ON DELETE CASCADE,

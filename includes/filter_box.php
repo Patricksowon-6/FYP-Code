@@ -1,4 +1,3 @@
-<!-- filter_box.php -->
 <div id="filterModal" class="modal-overlay" style="display: none;">
     <div class="modal-content">
         <span class="close-modal">&times;</span>

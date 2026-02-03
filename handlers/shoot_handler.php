@@ -141,36 +141,36 @@ if ($action === "attach_file") {
 /*************************************************************
  6. UPDATE ASSET STATUS
 *************************************************************/
-// if ($action === "update_asset_status") {
-//     // Use the decoded JSON
-//     $asset_id = $input["asset_id"] ?? 0;
-//     $status = $input["status"] ?? null;
+if ($action === "update_asset_status") {
+    // Use the decoded JSON
+    $asset_id = $input["asset_id"] ?? 0;
+    $status = $input["status"] ?? null;
 
-//     if (!$asset_id || !$status) {
-//         echo json_encode(["success" => false, "error" => "Missing asset ID or status"]);
-//         exit;
-//     }
+    if (!$asset_id || !$status) {
+        echo json_encode(["success" => false, "error" => "Missing asset ID or status"]);
+        exit;
+    }
 
-//     $allowed = ["ready","in_progress","not_ready"];
-//     if (!in_array($status, $allowed)) {
-//         echo json_encode(["success" => false, "error" => "Invalid status"]);
-//         exit;
-//     }
+    $allowed = ["ready","in_progress","not_ready"];
+    if (!in_array($status, $allowed)) {
+        echo json_encode(["success" => false, "error" => "Invalid status"]);
+        exit;
+    }
 
-//     $stmt = $conn->prepare("
-//         UPDATE shoot_date_assets
-//         SET status = ?
-//         WHERE asset_id = ?
-//     ");
-//     $stmt->bind_param("si", $status, $asset_id);
+    $stmt = $conn->prepare("
+        UPDATE shoot_date_assets
+        SET status = ?
+        WHERE asset_id = ?
+    ");
+    $stmt->bind_param("si", $status, $asset_id);
 
-//     if ($stmt->execute()) {
-//         echo json_encode(["success" => true]);
-//     } else {
-//         echo json_encode(["success" => false, "error" => $stmt->error]);
-//     }
-//     exit;
-// }
+    if ($stmt->execute()) {
+        echo json_encode(["success" => true]);
+    } else {
+        echo json_encode(["success" => false, "error" => $stmt->error]);
+    }
+    exit;
+}
 
 
 echo json_encode(["error" => "Invalid action"]);

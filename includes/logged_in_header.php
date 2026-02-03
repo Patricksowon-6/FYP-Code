@@ -28,7 +28,7 @@
                 <i class="fa-solid fa-film"></i>&emsp;
                 Projects
             </a>
-            <a class="nav__link" href="<?= PAGES_URL; ?>whiteboard.php">
+            <!-- <a class="nav__link" href="<?= PAGES_URL; ?>whiteboard.php">
                 <i class="fa-solid fa-chalkboard"></i>&emsp;
                 Whiteboard
             </a>
@@ -39,7 +39,7 @@
             <a class="nav__link" href="<?= PAGES_URL; ?>task_board.php">
                 <i class="fa-regular fa-clipboard"></i>&emsp;
                 Task Board
-            </a>
+            </a> -->
         </div>
         <div class="nav__overlay"></div>
     </nav>

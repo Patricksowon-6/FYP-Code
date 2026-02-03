@@ -41,7 +41,7 @@ if ($user_id) {
                 <i class="fa-solid fa-film"></i>&emsp;
                 Projects
             </a>
-            <a class="nav__link" href="<?= PAGES_URL; ?>whiteboard.php">
+            <!-- <a class="nav__link" href="<?= PAGES_URL; ?>whiteboard.php">
                 <i class="fa-solid fa-chalkboard"></i>&emsp;
                 Whiteboard
             </a>
@@ -52,7 +52,7 @@ if ($user_id) {
             <a class="nav__link" href="<?= PAGES_URL; ?>task_board.php">
                 <i class="fa-regular fa-clipboard"></i>&emsp;
                 Task Board
-            </a>
+            </a> -->
             <a class="nav__link" href="<?= PAGES_URL; ?>components.php">
                 <i class="fa-solid fa-folder-open"></i>&emsp;
                 Component Viewer

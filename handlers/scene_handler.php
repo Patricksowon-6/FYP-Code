@@ -1,11 +1,11 @@
 <?php
-session_start();
 require_once __DIR__ . "/../config.php";
 
 header("Content-Type: application/json");
 
 $user_id = $_SESSION['user_id'] ?? null;
 $action  = $_REQUEST['action'] ?? null;
+$project_id = $_SESSION['project_id'] ?? 0;
 
 if (!$user_id) {
     echo json_encode(["success" => false, "error" => "Unauthorized"]);
@@ -112,18 +112,17 @@ if ($action === "attach_file") {
 /* =====================================================
    GET ASSETS FOR A SHOOT DATE
 ===================================================== */
-/* =====================================================
-   GET ASSETS FOR A SHOOT DATE
-===================================================== */
 if ($action === "get_assets_for_shoot") {
 
     $shoot_date_id = intval($_GET['shoot_date_id'] ?? 0);
 
     $stmt = $conn->prepare("
         SELECT
+            sda.asset_id,
             f.original_name AS title,
-            f.path          AS url,
-            f.category
+            f.path AS url,
+            f.category,
+            COALESCE(sda.status, 'not_ready') AS status
         FROM shoot_date_assets sda
         JOIN user_files f ON f.file_id = sda.file_id
         WHERE sda.shoot_date_id = ?
@@ -137,20 +136,21 @@ if ($action === "get_assets_for_shoot") {
     $assets = [];
 
     while ($row = $res->fetch_assoc()) {
-
         $assets[] = [
-            "title"       => $row['title'],
-            "category"    => strtolower(trim($row['category'])),
-            "public_url"  => rtrim(SUPABASE_URL, '/')
+            "asset_id"   => (int)$row['asset_id'],
+            "title"      => $row['title'],
+            "category"   => strtolower(trim($row['category'])),
+            "status"     => $row['status'],
+            "public_url" => rtrim(SUPABASE_URL, '/')
                 . "/storage/v1/object/public/"
                 . ltrim($row['url'], '/')
         ];
     }
 
-
     echo json_encode($assets);
     exit;
 }
+
 
 
 /* =====================================================
@@ -197,6 +197,37 @@ if ($action === "get_files") {
     exit;
 
 }
+if ($action === "update_asset_status") {
+
+    $asset_id = intval($_POST['asset_id'] ?? 0);
+    $status   = $_POST['status'] ?? null;
+
+    if (!$asset_id || !$status) {
+        echo json_encode([
+            "success" => false,
+            "error" => "Missing asset ID or status",
+            "debug" => $_POST // 👈 temporary, remove later
+        ]);
+        exit;
+    }
+
+    $allowed = ["ready", "in_progress", "not_ready"];
+    if (!in_array($status, $allowed, true)) {
+        echo json_encode(["success" => false, "error" => "Invalid status"]);
+        exit;
+    }
+
+    $stmt = $conn->prepare("
+        UPDATE shoot_date_assets
+        SET status = ?
+        WHERE asset_id = ?
+    ");
+    $stmt->bind_param("si", $status, $asset_id);
+
+    echo json_encode(["success" => $stmt->execute()]);
+    exit;
+}
+
 
 
 echo json_encode(["success" => false, "error" => "Unknown action"]);

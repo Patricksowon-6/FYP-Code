@@ -17,10 +17,6 @@ if (!$action) {
     exit;
 }
 
-/* =====================================================
-   ADD SHOOT DATE
-   (USES SESSION project_id — WORKING VERSION)
-===================================================== */
 if ($action === "add_shoot_date") {
 
     $project_id = intval($_SESSION['project_id'] ?? 0);

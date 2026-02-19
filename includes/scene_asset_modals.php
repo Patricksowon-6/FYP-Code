@@ -118,22 +118,6 @@
                 <label>Upload File:</label>
                 <input type="file" id="newAssetFile" required>
 
-                <label>Asset Name:</label>
-                <input type="text" id="newAssetName" required>
-
-                <label>Description:</label>
-                <textarea id="newAssetDesc" placeholder="Optional…"></textarea>
-
-                <label>Category:</label>
-                <select id="newAssetCategory" required>
-                    <option value="images">Images</option>
-                    <option value="videos">Videos</option>
-                    <option value="audio">Audio</option>
-                    <option value="documents">Documents</option>
-                    <option value="models">Models & Art</option>
-                    <option value="other">Other</option>
-                </select><br><br>
-
                 <button type="submit" class="save-btn upload-btn">Upload</button>
             </form><br><br>
         </div><br><br>

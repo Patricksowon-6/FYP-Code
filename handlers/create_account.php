@@ -48,9 +48,11 @@
 
 								$_SESSION['user_name'] = $_POST['user_name'];
 								$_SESSION['user_id'] = $_POST['user_id'];
-								header("Location: sign_in_page.php");
-                                echo "<script>window.alert('Account Created! Use details to Log In!')</script>";
-								die;
+                                echo "<script>
+                                    alert('✅ Account Created! Use details to Log In!');
+                                        window.location.href = 'sign_in_page.php';
+                                    </script>";
+								exit;
 							}
                         }
                     }

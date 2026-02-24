@@ -166,8 +166,8 @@ if ($action === "get_files") {
             category
         FROM user_files
         WHERE project_id = ?
-          AND category = ?
-          AND file_approval = 'approved'
+        AND category = ?
+        AND file_approval = 'approved'
         ORDER BY uploaded_at DESC
     ");
 
@@ -202,7 +202,6 @@ if ($action === "update_asset_status") {
         echo json_encode([
             "success" => false,
             "error" => "Missing asset ID or status",
-            "debug" => $_POST // 👈 temporary, remove later
         ]);
         exit;
     }

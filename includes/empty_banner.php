@@ -21,12 +21,16 @@
                 <i class="fa-solid fa-circle-info"></i>
                 Theme/ Genre with emoji
             </li>
+            <li class="animationTop delay-04">
+                <i class="fa-solid fa-circle-info"></i>
+                Theme/ Genre with emoji
+            </li>
         </ul>
     </div>
     <div class="center">
         <div class="bigTitle animationTop delay-04">Welcome Back, <?php echo $_SESSION['user_name']; ?></div>
             <div class="banner">
-                <img src="<?= IMG_PATH; ?>Boss Idea 1.gif" class="animationTop delay-05">
+                <img src="<?= IMG_PATH; ?>lemon.jpeg" class="animationTop delay-05">
                 <div class="content">
                     <div class="title animationTop delay-06">
                         Show Title <br>
@@ -34,11 +38,11 @@
                     </div>
                 </div>
             </div>
-        <div class="bigTitle animationTop delay-15">Brief Description</div>
+        <div class="bigTitle animationTop delay-15">Project Description</div>
             <div class="listFigure">
                 <div class="item animationTop delay-16">
                     <div class="img">
-                        <img src="<?= IMG_PATH; ?>Cavern Entrance Idea 1.gif" alt="">
+                        <img src="<?= IMG_PATH; ?>shirmp.jpeg" alt="">
                     </div>
                     <div class="content"> 
                         <p>
@@ -55,38 +59,38 @@
                     <img src="<?= IMG_PATH; ?>Me.jpg" alt="Edit"> 
                 </button>
                 
-                <div class="title">Profile Picture</div>
+                <div class="title">Profile Image</div>
                 <ul>
                     <li>
                         Your Role
                     </li>
                     <li>
-                        User Position
+                        Owner
                     </li>
                 </ul>
             </div>
             <!-- actor -->
             <div class="actor">
-                <div class="bigTitle animationTop delay-19">Extra Images</div> <!-- Images that the user wishes to display. Perhaps could be a favourite character, an image that reminds them of something, an image that recalls an important note, etc -->
+                <div class="bigTitle animationTop delay-19">Extra Images</div> 
                 <ul>
                     <li class="animationTop delay-2">
-                        <img src="<?= IMG_PATH ?>DGM5 Idea 1.jpg">
+                        <img src="<?= IMG_PATH ?>1.jpeg">
                     </li>
 
                     <li class="animationTop delay-21">
-                        <img src="user2.PNG">
+                        <img src="<?= IMG_PATH ?>4.jpeg">
                     </li>
 
                     <li class="animationTop delay-22">
-                        <img src="user3.PNG">
+                        <img src="<?= IMG_PATH ?>2.jpeg">
                     </li>
 
                     <li class="animationTop delay-23">
-                        <img src="user4.PNG">
+                        <img src="<?= IMG_PATH ?>3.jpeg">
                     </li>
 
                     <li class="animationTop delay-24">
-                        <img src="user5.PNG">
+                        <img src="<?= IMG_PATH ?>4.jpeg">
                     </li>
                 </ul>
             </div>

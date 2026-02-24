@@ -13,11 +13,11 @@
         </div><br><br>
 
         <!-- Fixed bottom buttons -->
-        <!-- <div class="sidebar-footer">
+        <div class="sidebar-footer">
             <button class="footer-btn ready">Ready</button>
             <button class="footer-btn in_progress">In Progress</button>
             <button class="footer-btn not_ready">Not Ready</button>
-        </div> -->
+        </div>
     </aside>
 
 

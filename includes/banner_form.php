@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gather_details'])) {
     <!-- Step 4: Small Circle Images -->
     <div class="wizard-step" id="step4">
         <h2>Step 4 — Extra Images</h2>
-        <p>Upload up to 5 small circle images to display in the banner.</p>
+        <p>Upload up to 5 extra circle images to display in the banner.</p>
 
         <div class="small-images-container">
             <?php for ($i = 1; $i <= 5; $i++): ?>

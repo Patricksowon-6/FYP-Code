@@ -23,7 +23,7 @@
         <!-- Subcards -->
         <div class="cards">
             <div class="card add-card">
-                <button id="addCardBtn">➕ Add Subcard</button>
+                <button id="addCardBtn" style="cursor: pointer;">➕ Add Sub-card</button>
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
     <div id="detailsModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2 id="modalTitle">Add Subcard</h2>
+            <h2 id="modalTitle" style="cursor: pointer;">Add Subcard</h2>
 
             <!-- IMPORTANT: enctype for file uploads -->
             <form id="detailsForm" enctype="multipart/form-data">

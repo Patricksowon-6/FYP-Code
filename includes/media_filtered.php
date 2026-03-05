@@ -122,7 +122,11 @@ while ($row = $result->fetch_assoc()) {
                             <i class="fa-solid fa-comment"></i>
                         </a>
 
-                        <?php include(INCLUDES_PATH . 'kebab.php'); ?>
+                        <a href="<?= PAGES_URL ?>versions.php?file_id=<?= $file['file_id'] ?>">
+                            <i class="fa-solid fa-list"></i>
+                        </a>
+
+                        <?php //include(INCLUDES_PATH . 'kebab.php'); ?>
                     </div>
                 </center>
             </div>

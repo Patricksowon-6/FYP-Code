@@ -44,10 +44,14 @@ $result = $stmt->get_result();
                         </button>
 
                         <a href="<?= PAGES_URL ?>comments_page.php?other=<?= urlencode($url) ?>&project_id=<?= $project_id ?>&file_id=<?= $other['file_id'] ?>">
-                                <i class="fa-solid fa-comment"></i>
-                            </a>
+                            <i class="fa-solid fa-comment"></i>
+                        </a>
 
-                        <?php include(INCLUDES_PATH . 'kebab.php'); ?>
+                        <a href="<?= PAGES_URL ?>versions.php?file_id=<?= $other['file_id'] ?>">
+                            <i class="fa-solid fa-list"></i>
+                        </a>
+
+                        <?php //include(INCLUDES_PATH . 'kebab.php'); ?>
                     </div>
                 </center>
             </div>

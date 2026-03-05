@@ -68,7 +68,7 @@ $version_number = 1;
 while ($row = $result->fetch_assoc()) {
     $versions[] = [
         "version" => $version_number++,
-        "date"    => date("M d, Y", strtotime($row['uploaded_at'])),
+        "date"    => date("M d, Y g:i A", strtotime($row['uploaded_at'])),
         "url"     => rtrim(SUPABASE_URL, '/') . "/storage/v1/object/public/" . $row['path']
     ];
 }
@@ -96,7 +96,7 @@ $versions[] = [
         </div>
         <div class="file-info-right">
             <?php if ($category === 'images'): ?>
-                <img src="<?= $public_url_main ?>" alt="<?= htmlspecialchars($original_name) ?>">
+                <img src="<?= $versions[count($versions)-1]['url'] ?>" alt="<?= htmlspecialchars($original_name) ?>">
 
             <?php elseif ($category === 'models'): ?>
                 <img src="<?= IMG_PATH ?>model_icon.png" alt="model_icon">
@@ -106,6 +106,9 @@ $versions[] = [
 
             <?php elseif ($category === 'audio'): ?>
                 <img src="<?= IMG_PATH ?>audio_icon.png" alt="model_icon">
+
+            <?php elseif ($category === 'videos'): ?>
+                <img src="<?= IMG_PATH ?>video_icon.png" alt="model_icon">
             
             <?php elseif ($category === 'other'): ?>
                 <img src="<?= IMG_PATH ?>audio_icon.png" alt="model_icon">

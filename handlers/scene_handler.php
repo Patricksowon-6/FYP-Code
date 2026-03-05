@@ -193,6 +193,7 @@ if ($action === "get_files") {
     exit;
 
 }
+
 if ($action === "update_asset_status") {
 
     $asset_id = intval($_POST['asset_id'] ?? 0);
@@ -220,6 +221,160 @@ if ($action === "update_asset_status") {
     $stmt->bind_param("si", $status, $asset_id);
 
     echo json_encode(["success" => $stmt->execute()]);
+    exit;
+}
+
+if ($action === "upload_new_file") {
+
+    $shoot_date_id = intval($_POST['shoot_date_id'] ?? 0);
+
+    if (!$shoot_date_id || empty($_FILES['file'])) {
+        echo json_encode([
+            "success" => false,
+            "error"   => "Missing shoot date or file"
+        ]);
+        exit;
+    }
+
+    $file = $_FILES['file'];
+
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        echo json_encode([
+            "success" => false,
+            "error"   => "Upload failed"
+        ]);
+        exit;
+    }
+
+    /* =====================================================
+       FILE INFO
+    ===================================================== */
+
+    $original_name = $file['name'];
+    $tmp_path      = $file['tmp_name'];
+    $extension     = strtolower(pathinfo($original_name, PATHINFO_EXTENSION));
+
+    /* =====================================================
+       DETERMINE CATEGORY FROM EXTENSION
+    ===================================================== */
+
+    switch ($extension) {
+        case 'jpg':
+        case 'jpeg':
+        case 'png':
+        case 'webp':
+        case 'gif':
+        case 'svg':
+            $category = 'images';
+            break;
+
+        case 'mp4':
+        case 'mov':
+        case 'webm':
+            $category = 'videos';
+            break;
+
+        case 'mp3':
+        case 'wav':
+        case 'mscz':
+            $category = 'audio';
+            break;
+
+        case 'pdf':
+        case 'doc':
+        case 'docx':
+        case 'txt':
+        case 'html':
+        case 'htm':
+        case 'csv':
+        case 'md':
+            $category = 'documents';
+            break;
+
+        case 'blend':
+        case 'fbx':
+        case 'obj':
+            $category = 'models';
+            break;
+
+        default:
+            $category = 'other';
+    }
+
+    $storage_path = "project_{$project_id}/user_{$user_id}/uploads/{$category}/{$original_name}";
+
+    // ---------------------------------------------------------
+    // 9. UPLOAD TO SUPABASE
+    // ---------------------------------------------------------
+    $url = rtrim(SUPABASE_URL, '/') . "/storage/v1/object/" . $storage_path;
+
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CUSTOMREQUEST  => "PUT",
+        CURLOPT_HTTPHEADER     => [
+            "Authorization: Bearer " . SUPABASE_SERVICE_KEY,
+            "apikey: " . SUPABASE_SERVICE_KEY,
+            "Content-Type: " . mime_content_type($file['tmp_name'])
+        ],
+        CURLOPT_POSTFIELDS => file_get_contents($file['tmp_name'])
+    ]);
+
+    curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($http_code < 200 || $http_code >= 300) {
+        echo json_encode(['error' => 'Upload failed']);
+        exit;
+    }
+
+    $stmt = $conn->prepare("
+        INSERT INTO user_files
+            (project_id, user_id, original_name, path, category, file_approval)
+        VALUES
+            (?, ?, ?, ?, ?, 'approved')
+    ");
+
+    $stmt->bind_param(
+        "iisss",
+        $project_id,
+        $user_id,
+        $original_name,
+        $storage_path,
+        $category
+    );
+
+    if (!$stmt->execute()) {
+        echo json_encode([
+            "success" => false,
+            "error"   => "Failed to save file metadata"
+        ]);
+        exit;
+    }
+
+    $file_id = $stmt->insert_id;
+
+    /* =====================================================
+       ATTACH FILE TO SHOOT DATE
+    ===================================================== */
+
+    $stmt = $conn->prepare("INSERT INTO shoot_date_assets (shoot_date_id, file_id, user_id, status) VALUES (?, ?, ?, 'not_ready')");
+
+    $stmt->bind_param("iii", $shoot_date_id, $file_id, $user_id);
+    $stmt->execute();
+
+    /* =====================================================
+       RESPONSE
+    ===================================================== */
+
+    echo json_encode([
+        "success" => true,
+        "file_id" => $file_id,
+        "category" => $category,
+        "public_url" => rtrim(SUPABASE_URL, '/') . "/storage/v1/object/public/" . ltrim($storage_path, '/')
+    ]);
+
     exit;
 }
 

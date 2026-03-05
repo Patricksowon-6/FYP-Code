@@ -32,7 +32,7 @@
     <!-- VIDEO -->
     <div class="upload-box" data-type="videos">
         <h2>Video</h2>
-        <input type="file" multiple accept=".mp4, .webm">
+        <input type="file" multiple accept=".mp4, .webm, .mov">
         <div class="previews"></div><br><br>
         <button type="button" class="upload_button" id="video_upload">Upload</button>
     </div>

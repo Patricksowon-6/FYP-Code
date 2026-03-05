@@ -55,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const isOwner = Number(c.user_id) === Number(USER_ID);
 
         item.innerHTML = `
-            <img src="${c.profile_img}" class="comment-avatar" alt="avatar">
             <div class="comment-content">
                 <span class="comment-username">${c.user_name}</span><br>
                 <p class="comment-text">${c.comment_text}</p> <br><br>

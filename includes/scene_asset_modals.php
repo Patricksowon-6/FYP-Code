@@ -116,9 +116,10 @@
             <form id="uploadNewForm">
 
                 <label>Upload File:</label>
-                <input type="file" id="newAssetFile" required>
+                <input type="file" id="newAssetFile" required 
+                accept=".pdf, .doc, .docx, .txt, .html, .htm, .csv, .md, .kitsp, .gif, .png, .jpg, .jpeg, .webp, .svg, .mp3, .wav, .mscz, .mp4, .webm, .mov, .blend, .fbx, .obj">
 
-                <button type="submit" class="save-btn upload-btn">Upload</button>
+                <button type="submit" class="save-btn upload-btn" name>Upload</button>
             </form><br><br>
         </div><br><br>
     </div><br><br>

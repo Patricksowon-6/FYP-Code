@@ -306,29 +306,32 @@ document.addEventListener("DOMContentLoaded", () => {
     =============================== */
     uploadNewForm.onsubmit = async (e) => {
         e.preventDefault();
+
         if (!selectedShootDate) {
             alert("Select a shoot date first");
             return;
         }
 
         const fileInput = document.getElementById("newAssetFile");
-        const nameInput = document.getElementById("newAssetName");
-        const descInput = document.getElementById("newAssetDesc");
-        const categoryInput = document.getElementById("newAssetCategory");
 
-        if (!fileInput.files.length) return alert("Select a file");
+        if (!fileInput.files.length) {
+            alert("Select a file");
+            return;
+        }
 
         const data = new FormData();
         data.append("action", "upload_new_file");
         data.append("shoot_date_id", selectedShootDate.shoot_date_id);
         data.append("file", fileInput.files[0]);
-        data.append("name", nameInput.value);
-        data.append("desc", descInput.value);
-        data.append("category", categoryInput.value);
 
         try {
-            const res = await fetch("../handlers/scene_handler.php", { method: "POST", body: data });
+            const res = await fetch("../handlers/scene_handler.php", {
+                method: "POST",
+                body: data
+            });
+
             const result = await res.json();
+
             if (result.success) {
                 uploadNewForm.reset();
                 assetModal.style.display = "none";
@@ -336,6 +339,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 alert("Failed to upload: " + (result.error ?? ""));
             }
+
         } catch (err) {
             console.error("Failed to upload file:", err);
         }

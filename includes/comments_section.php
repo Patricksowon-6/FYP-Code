@@ -90,7 +90,6 @@ $ext = $asset_url ? strtolower(pathinfo($asset_url, PATHINFO_EXTENSION)) : '';
 
         <section class="comment-section">
             <div class="comment-box">
-                <img src="<?= htmlspecialchars(supabase_public_url($banner['profile_img'] ?? '')) ?>" alt="User avatar" class="comment-avatar">
 
                 <div class="comment-input">
                     <span class="comment-username"><?= htmlspecialchars($username) ?></span>

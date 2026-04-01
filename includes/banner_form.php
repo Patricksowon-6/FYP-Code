@@ -1,17 +1,16 @@
 <?php
-require_once(__DIR__ . '/../config.php');
-require_once(HANDLER_PATH . 'create_project.php');
-require_once(HANDLER_PATH . 'sign_in_up.php');
+    require_once(__DIR__ . '/../config.php');
+    require_once(HANDLER_PATH . 'create_project.php');
+    require_once(HANDLER_PATH . 'sign_in_up.php');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gather_details'])) {
-    gather_details($conn);
-    exit;
-}
-
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gather_details'])) {
+        gather_details($conn);
+        exit;
+    }
 ?>
 
 <form method="POST" class="banner-wizard" enctype="multipart/form-data">
-
+    <input type="hidden" name="project_id" value="<?= $_GET['project_id'] ?? $_POST['project_id'] ?? '' ?>">
     <!-- Progress bar -->
     <div class="wizard-progress">
         <div class="step active">1</div>
@@ -50,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gather_details'])) {
         </div>
 
         <div class="wizard-buttons">
-            <button type="button" onclick="location.href='<?= PAGES_URL ?>logged_in.php'" class="btn secondary">← Back</button>
+            <button type="button" onclick="location.href='<?= PAGES_URL ?>projects.php'" class="btn secondary">← Project Page</button>
             <button type="button" class="btn primary">Next →</button>
         </div>
     </div>
@@ -58,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gather_details'])) {
     <!-- Step 2: Themes/Genres -->
     <div class="wizard-step" id="step2">
         <h2>Step 2 — Themes & Genres</h2>
-        <p class="subtitle">Add up to five emoji and theme/genre combinations that capture your show's vibe.</p>
+        <p>Add up to five emoji and theme/genre combinations that capture your show's vibe.</p>
 
         <div class="themes-container">
             <?php for ($i = 1; $i <= 5; $i++): ?>
@@ -88,10 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gather_details'])) {
             <div class="field">
                 <label>Description Image</label>
                 <input type="file" id="quote_img" accept="image/*" name="quote_img">
-            </div>
-            <div class="field">
-                <label>Profile Image</label>
-                <input type="file" id="profile_img" accept="image/*" name="profile_img">
             </div>
         </div>
 
@@ -138,7 +133,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gather_details'])) {
             <ul>
                 <li><strong>Banner:</strong> <span id="summary-banner-img"></span></li>
                 <li><strong>Description Image:</strong> <span id="summary-quote-img"></span></li>
-                <li><strong>Profile:</strong> <span id="summary-profile-img"></span></li>
             </ul>
 
             <h3>Small Circle Images</h3>
@@ -152,4 +146,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gather_details'])) {
     </div>
 </form>
 
-<script src="<?= JS_PATH ?>banner_form.js"></script>

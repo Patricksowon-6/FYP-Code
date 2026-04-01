@@ -109,7 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                 const versionData = await versionRes.json();
                                 if (versionData.error) {
-                                    alert(`❌ Version save failed: ${versionData.error}`);
+                                    const modal = document.getElementById("resultModal");
+                                    const title = modal.querySelector("h2");
+
+                                    title.textContent = `❌ Version save failed: ${versionData.error}`;
+
+                                    // Show modal instead of alert
+                                    openResultModal();
                                 } else {
                                     uploadedFiles.push({ name: file.name, url: versionData.url });
                                 }
@@ -121,29 +127,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
                     if (data.error) {
-                        alert(`❌ ${file.name}: ${data.error}`);
+                        const modal = document.getElementById("resultModal");
+                        const title = modal.querySelector("h2");
+
+                        title.textContent = `❌ ${file.name}: ${data.error}`;
+
+                        // Show modal instead of alert
+                        openResultModal();
                     } else {
                         uploadedFiles.push({ name: file.name, url: data.url });
                     }
 
                 } catch (err) {
-                    console.error(err);
-                    alert(`❌ ${file.name}: Upload failed`);
+
+                    const modal = document.getElementById("resultModal");
+                    const title = modal.querySelector("h2");
+
+                    title.textContent = `❌ ${file.name}: Upload failed`;
+
+                    // Show modal instead of alert
+                    openResultModal();
                 }
             }
 
             if (window.hideLoader) window.hideLoader();
 
             if (uploadedFiles.length) {
-                alert(`✅ ${uploadedFiles.length} file(s) uploaded successfully!`);
-                uploadedFiles.forEach(f => {
-                    const link = document.createElement('a');
-                    link.href = f.url;
-                    link.textContent = f.name;
-                    link.target = '_blank';
-                    previews.appendChild(link);
-                    previews.appendChild(document.createElement('br'));
-                });
+                // Update modal text (optional but nice)
+                const modal = document.getElementById("resultModal");
+                const title = modal.querySelector("h2");
+
+                title.textContent = `✅ ${uploadedFiles.length} file(s) uploaded successfully!`;
+
+                // Show modal instead of alert
+                openResultModal();
             }
 
             // Clear selections and previews
@@ -155,6 +172,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+function openResultModal() {
+    document.getElementById("resultModal").classList.remove("hidden");
+}
 
 // ----------------------------
 // Duplicate Modal 
@@ -193,4 +214,12 @@ function openPermissionsModal() {
 
 function closePermissionsModal() {
     document.getElementById('permissionsModal').classList.add('hidden');
+}
+
+function closeResultModal() {
+    document.getElementById('resultModal').classList.add('hidden');
+}
+
+function goToMediaManager() {
+    window.location.href = "media.php"; // change path if needed
 }

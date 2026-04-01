@@ -30,7 +30,7 @@ $result = $stmt->get_result();
                     </video> -->
 
                     <h1 class="file-name"><?= htmlspecialchars($video['original_name']); ?><br><br></h1>
-                    <h3 class="person-name">By <?= htmlspecialchars($_SESSION['user_name']); ?><br><br></h3>
+                    <h3 class="person-name">By <?= htmlspecialchars($video['user_name']); ?><br><br></h3>
 
                     <div class="action-buttons">
                         <a href="<?= htmlspecialchars($url) ?>" download target="_blank">
@@ -60,7 +60,7 @@ $result = $stmt->get_result();
     <!-- EMPTY STATE (CONSISTENT WITH OTHER ASSETS) -->
     <div class="empty-state">
         <div class="empty-box">
-            <i class="fa-solid fa-photo-film empty-icon"></i>
+            <i class="fa-solid fa-file-video empty-icon"></i>
 
             <h2>No videos yet</h2>
             <p>Add your first asset to get started with this project.</p>

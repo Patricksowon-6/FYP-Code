@@ -59,7 +59,7 @@
                     <img src="<?= IMG_PATH; ?>Me.jpg" alt="Edit"> 
                 </button>
                 
-                <div class="title">Profile Image</div>
+                <div class="title"><?php echo $_SESSION['user_name']; ?></div>
                 <ul>
                     <li>
                         Your Role

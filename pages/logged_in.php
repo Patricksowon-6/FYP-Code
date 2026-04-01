@@ -19,6 +19,7 @@
 
 <?php 
     include(INCLUDES_PATH . 'logged_in_header.php'); 
+    
     include(INCLUDES_PATH . 'dashboard.php'); 
 ?>
 

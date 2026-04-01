@@ -1,0 +1,18 @@
+*{
+  font-family: monospace;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* body {
+  background: #f5f6fa;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px;
+  color: #333;
+} */
+
+/* Get universal background for light/ dark modes */

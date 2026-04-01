@@ -85,6 +85,9 @@ switch ($type) {
     case 'pending':
         include INCLUDES_PATH . 'media_pending.php';
         break;
+    case 'bin':
+        include INCLUDES_PATH . 'media_bin.php';
+        break;
     default:
         include INCLUDES_PATH . 'media_images.php';
 }
@@ -95,6 +98,7 @@ switch ($type) {
 
 <script src="<?= JS_PATH ?>delete_file.js"></script>
 <script src="<?= JS_PATH ?>filter_box.js"></script>
+<script src="<?= JS_PATH ?>video.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 </body>
 </html>

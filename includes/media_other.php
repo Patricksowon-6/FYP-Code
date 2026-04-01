@@ -28,7 +28,7 @@ $result = $stmt->get_result();
                     </h1>
 
                     <h3 class="person-name">
-                        By <?= htmlspecialchars($_SESSION['user_name']); ?><br><br>
+                        By <?= htmlspecialchars($other['user_name']); ?><br><br>
                     </h3>
 
                     <div class="action-buttons">
@@ -63,7 +63,7 @@ $result = $stmt->get_result();
     <!-- EMPTY STATE (CONSISTENT ACROSS ALL ASSETS) -->
     <div class="empty-state">
         <div class="empty-box">
-            <i class="fa-solid fa-photo-film empty-icon"></i>
+            <i class="fa-solid fa-globe empty-icon"></i>
 
             <h2>No assets yet</h2>
             <p>Add your first asset to get started with this project.</p>

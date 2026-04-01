@@ -1,6 +1,5 @@
 * {
 	box-sizing: border-box;
-	font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
 .video {
@@ -274,7 +273,6 @@
   z-index: 10; /* ensure it's above surrounding elements */
   position: relative;
 }
-
 
 @keyframes fadeIn {
   from {opacity: 0; transform: translateY(-10px);}

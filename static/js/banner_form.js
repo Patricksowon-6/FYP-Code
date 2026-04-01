@@ -51,9 +51,8 @@ function previewImage(input, previewContainer) {
 // Step 3: main images
 const bannerInput = document.getElementById("banner_img");
 const quoteInput = document.getElementById("quote_img");
-const profileInput = document.getElementById("profile_img");
 
-[bannerInput, quoteInput, profileInput].forEach(input => {
+[bannerInput, quoteInput].forEach(input => {
 	const wrapper = document.createElement("div");
 	wrapper.classList.add("preview-wrapper");
 	input.parentNode.insertBefore(wrapper, input.nextSibling);
@@ -102,10 +101,8 @@ function populateSummary() {
 	// Main images
 	const bannerFile = bannerInput.files[0];
 	const quoteFile = quoteInput.files[0];
-	const profileFile = profileInput.files[0];
 	document.getElementById("summary-banner-img").textContent = bannerFile ? bannerFile.name : "None";
 	document.getElementById("summary-quote-img").textContent = quoteFile ? quoteFile.name : "None";
-	document.getElementById("summary-profile-img").textContent = profileFile ? profileFile.name : "None";
 
 	// Small circle images
 	const smallList = document.getElementById("summary-small-images");

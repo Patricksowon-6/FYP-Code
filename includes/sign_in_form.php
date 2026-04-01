@@ -22,13 +22,13 @@
         <form action="sign_in_page.php" method="post">
             <h1>Create Account</h1>
 
-            <div class="social-container">
+            <!-- <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
+            </div> 
 
-            <span>or use your email for registration</span>
+            <span>or use your email for registration</span>-->
 
             <input type="text" name="full_name" required placeholder="Name">
             <input type="text" name="user_name" required placeholder="Username">
@@ -44,13 +44,13 @@
         <form action="sign_in_page.php" method="post">
             <h1>Sign in</h1>
 
-            <div class="social-container">
+            <!-- <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
+            </div> 
 
-            <span>or use your account</span>
+            <span>or use your account</span>-->
 
             <input type="text" placeholder="Username" name="user_name" required />
             <input type="password" placeholder="Password" name="password" required />

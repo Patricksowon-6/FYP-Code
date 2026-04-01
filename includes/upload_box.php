@@ -16,7 +16,7 @@
     <!-- IMAGES -->
     <div class="upload-box" data-type="images">
         <h2>Images</h2>
-        <input type="file" multiple accept=".gif, .png, .jpg, .jpeg, .webp, .svg">
+        <input type="file" multiple accept="image/*">
         <div class="previews"></div><br><br>
         <button type="button" class="upload_button" id="image_upload">Upload</button>
     </div>
@@ -24,7 +24,7 @@
     <!-- AUDIO -->
     <div class="upload-box" data-type="audio">
         <h2>Audio</h2>
-        <input type="file" multiple accept=".mp3, .wav, .mscz">
+        <input type="file" multiple accept="audio/*">
         <div class="previews"></div><br><br>
         <button type="button" class="upload_button" id="audio_upload">Upload</button>
     </div>
@@ -32,7 +32,7 @@
     <!-- VIDEO -->
     <div class="upload-box" data-type="videos">
         <h2>Video</h2>
-        <input type="file" multiple accept=".mp4, .webm, .mov">
+        <input type="file" multiple accept="video/*">
         <div class="previews"></div><br><br>
         <button type="button" class="upload_button" id="video_upload">Upload</button>
     </div>
@@ -45,7 +45,7 @@
         <button type="button" class="upload_button" id="model_upload">Upload</button>
     </div>
 
-    <div class="upload-box" data-type="models">
+    <div class="upload-box" data-type="other">
         <h2>Other</h2>
         <input type="file" multiple accept="*">
         <div class="previews"></div><br><br>

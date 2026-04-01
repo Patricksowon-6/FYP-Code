@@ -23,6 +23,18 @@
         <div class="spinner"></div>
     </div>
 
+
+<div id="resultModal" class="modal hidden">
+    <div class="modal-content">
+        <h2>✅ Files Successfully Uploaded</h2>
+
+        <div class="modal-buttons">
+            <button class="btn cancel" onclick="closeResultModal()">Upload More</button>
+            <button class="btn confirm" onclick="goToMediaManager()">Media Manager</button>
+        </div>
+    </div>
+</div>
+
 <div id="duplicateModal" class="modal hidden">
     <div class="modal-content">
         <h2>Duplicate File Detected</h2>

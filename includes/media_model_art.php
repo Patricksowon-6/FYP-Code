@@ -19,7 +19,7 @@ $result = $stmt->get_result();
         $url = rtrim(SUPABASE_URL, '/') . "/storage/v1/object/{$model['path']}";
     ?>
         <?php if ($model['file_approval'] === 'approved'): ?>
-            <div class="video">
+            <div class="video" data-asset-id="<?= $model['file_id'] ?>" style="margin-top:100px;">
                 <center>
                     <img src="<?= IMG_PATH ?>model_icon.png" class="thumbnail-image" alt="3D Model">
 
@@ -28,7 +28,7 @@ $result = $stmt->get_result();
                     </h1>
 
                     <h3 class="person-name">
-                        By <?= htmlspecialchars($_SESSION['user_name']); ?><br><br>
+                        By <?= htmlspecialchars($model['user_name']); ?><br><br>
                     </h3>
 
                     <div class="action-buttons">
@@ -63,7 +63,7 @@ $result = $stmt->get_result();
     <!-- EMPTY STATE (CONSISTENT ACROSS ALL ASSETS) -->
     <div class="empty-state">
         <div class="empty-box">
-            <i class="fa-solid fa-photo-film empty-icon"></i>
+            <i class="fa-solid fa-brush empty-icon"></i>
 
             <h2>No models/ art yet</h2>
             <p>Add your first asset to get started with this project.</p>

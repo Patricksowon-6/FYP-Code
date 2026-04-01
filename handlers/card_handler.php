@@ -33,9 +33,8 @@ if ($stmt->num_rows === 0) {
 }
 $stmt->close();
 
-
 /* ---------------------------
-    SUPABASE UPLOAD FUNCTION
+   SUPABASE UPLOAD FUNCTION
 ----------------------------*/
 function upload_to_supabase($file, $user_id, $project_id) {
     if (!isset($file) || $file['error'] !== UPLOAD_ERR_OK) return null;
@@ -64,11 +63,10 @@ function upload_to_supabase($file, $user_id, $project_id) {
     return ($code >= 200 && $code < 300) ? $path : null;
 }
 
-
 /* ---------------------------
         DB FUNCTIONS
 ----------------------------*/
-function createMainCard($project_id, $user_id, $name, $purpose, $type, $path, $original_name) {
+function createMainCard($project_id, $user_id, $name, $purpose, $type, $path = null, $original_name = null) {
     global $conn;
     $stmt = $conn->prepare("
         INSERT INTO main_card (project_id, user_id, card_name, card_purpose, card_type, path, original_name)
@@ -82,7 +80,8 @@ function createMainCard($project_id, $user_id, $name, $purpose, $type, $path, $o
 function updateMainCard($card_id, $user_id, $name, $purpose, $type, $path = null, $original_name = null) {
     global $conn;
 
-    if ($path && $original_name) {
+    if ($path !== null && $original_name !== null) {
+        // Update with new image
         $stmt = $conn->prepare("
             UPDATE main_card
             SET card_name=?, card_purpose=?, card_type=?, path=?, original_name=?, updated_at=NOW()
@@ -90,6 +89,7 @@ function updateMainCard($card_id, $user_id, $name, $purpose, $type, $path = null
         ");
         $stmt->bind_param("sssssii", $name, $purpose, $type, $path, $original_name, $card_id, $user_id);
     } else {
+        // Update without changing image
         $stmt = $conn->prepare("
             UPDATE main_card
             SET card_name=?, card_purpose=?, card_type=?, updated_at=NOW()
@@ -111,28 +111,23 @@ function getMainCards($project_id) {
     $cards = $result->fetch_all(MYSQLI_ASSOC);
 
     foreach ($cards as &$card) {
-        if (!empty($card['path'])) {
-            $card['image_url'] = rtrim(SUPABASE_URL, '/') . "/storage/v1/object/public/" . $card['path'];
-        } else {
-            $card['image_url'] = null;
-        }
+        $card['image_url'] = !empty($card['path']) 
+            ? rtrim(SUPABASE_URL, '/') . "/storage/v1/object/public/" . $card['path'] 
+            : null;
     }
     unset($card);
 
     return $cards;
 }
 
-
 /* ---------------------------
         ROUTES
 ----------------------------*/
 $method = $_SERVER['REQUEST_METHOD'];
 
-
 /* ---- POST (create/update) ---- */
 if ($method === 'POST') {
-
-    $card_id   = $_POST['card_id'] ?? null;
+    $card_id   = isset($_POST['card_id']) ? (int)$_POST['card_id'] : 0;
     $name      = trim($_POST['name'] ?? '');
     $purpose   = trim($_POST['purpose'] ?? '');
     $card_type = trim($_POST['card_type'] ?? '');
@@ -142,18 +137,17 @@ if ($method === 'POST') {
         exit;
     }
 
-    // optional image upload
+    // Optional image upload
     $image_path = null;
     $original_name = null;
-
     if (!empty($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $image_path = upload_to_supabase($_FILES['image'], $user_id, $project_id);
         $original_name = $_FILES['image']['name'];
     }
 
-    if ($card_id) {
+    if ($card_id > 0) {
         // UPDATE
-        $ok = updateMainCard((int)$card_id, $user_id, $name, $purpose, $card_type, $image_path, $original_name);
+        $ok = updateMainCard($card_id, $user_id, $name, $purpose, $card_type, $image_path, $original_name);
         echo json_encode(['success' => (bool)$ok, 'updated' => (bool)$ok]);
         exit;
     } else {
@@ -164,20 +158,18 @@ if ($method === 'POST') {
     }
 }
 
-
 /* ---- GET (fetch list) ---- */
 if ($method === 'GET' && isset($_GET['fetch'])) {
     echo json_encode(getMainCards($project_id));
     exit;
 }
 
-
 /* ---- DELETE ---- */
 if ($method === 'DELETE') {
     parse_str(file_get_contents("php://input"), $del);
-    $id = $del['main_card_id'] ?? 0;
+    $id = isset($del['main_card_id']) ? (int)$del['main_card_id'] : 0;
 
-    if ($id) {
+    if ($id > 0) {
         $stmt = $conn->prepare("DELETE FROM main_card WHERE main_card_id=? AND user_id=?");
         $stmt->bind_param("ii", $id, $user_id);
         $ok = $stmt->execute();
@@ -188,7 +180,6 @@ if ($method === 'DELETE') {
     echo json_encode(['success' => false, 'error' => 'Missing ID']);
     exit;
 }
-
 
 /* ---- FALLBACK ---- */
 echo json_encode(['success' => false, 'error' => 'Unsupported method']);

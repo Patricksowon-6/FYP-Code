@@ -23,10 +23,31 @@ if ($user_id) {
         <div class="title"><h1>FYP Management System</h1></div>
         <nav>
             <ul>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Gallery</a></li>
-                <li><a href="<?= PAGES_URL; ?>profile.php">Profile</a></li>
-                <li><a href="<?= PAGES_URL ?>logout.php">Log Out</a></li>
+                <li>
+                    <a class="nav__link" href="<?= PAGES_URL; ?>calendar.php">
+                        <i class="fa-solid fa-calendar"></i>&emsp;Calendar
+                    </a>
+                </li>
+                <li>
+                    <a class="nav__link" href="<?= PAGES_URL; ?>task_board.php">
+                        <i class="fa-regular fa-clipboard"></i>&emsp;Task Board
+                    </a> 
+                </li>
+                <li>
+                    <a class="nav__link" href="<?= PAGES_URL; ?>whiteboard.php">
+                        <i class="fa-solid fa-chalkboard"></i>&emsp;Whiteboard
+                    </a>
+                </li>
+                <li>
+                    <a class="nav__link" href="<?= PAGES_URL; ?>profile.php">
+                        <i class="fa-solid fa-user"></i>&emsp;Profile
+                    </a>
+                </li>
+                <li>
+                    <a class="nav__link" href="<?= PAGES_URL; ?>logout.php">
+                        <i class="fa-solid fa-square-caret-left"></i>&emsp;Log Out
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -41,26 +62,13 @@ if ($user_id) {
                 <i class="fa-solid fa-film"></i>&emsp;
                 Projects
             </a>
-            <a class="nav__link" href="<?= PAGES_URL; ?>whiteboard.php">
-                <i class="fa-solid fa-chalkboard"></i>&emsp;
-                Whiteboard
-            </a>
-            <a class="nav__link" href="<?= PAGES_URL; ?>calendar.php">
-                <i class="fa-solid fa-calendar"></i>&emsp;
-                Calendar
-            </a>
-            <a class="nav__link" href="<?= PAGES_URL; ?>task_board.php">
-                <i class="fa-regular fa-clipboard"></i>&emsp;
-                Task Board
-            </a> 
-            <a class="nav__link" href="<?= PAGES_URL; ?>components.php">
-                <i class="fa-solid fa-folder-open"></i>&emsp;
-                Component Viewer
-            </a>
-            <!-- Updated Media Manager button -->
             <a class="nav__link" href="<?= PAGES_URL ?>media.php?type=images&project_id=<?= $project_id ?>">
                 <i class="fa-solid fa-camera"></i>&emsp;
                 Media Manager
+            </a>
+            <a class="nav__link" href="<?= PAGES_URL; ?>components.php">
+                <i class="fa-solid fa-folder-open"></i>&emsp;
+                Component Viewer
             </a>
             <a class="nav__link" href="<?= PAGES_URL; ?>scene_assets.php">
                 <i class="fa-regular fa-clipboard"></i>&emsp;

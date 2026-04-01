@@ -10,6 +10,8 @@ $media_types = [
     'model_art' => ['icon' => 'fa-solid fa-pen-ruler', 'label' => 'Models & Art'],
     'other' => ['icon' => 'fa-solid fa-globe', 'label' => 'Other'],
     'pending' => ['icon' => 'fa-solid fa-inbox', 'label' => 'Pending'],
+    'bin' => ['icon' => 'fa-solid fa-trash', 'label' => 'Recycling Bin'],
+    // 'help' => ['icon' => 'fa-solid fa-question', 'label' => 'Help'],
 ];
 ?>
 

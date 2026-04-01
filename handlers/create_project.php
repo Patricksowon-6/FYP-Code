@@ -33,7 +33,6 @@ require_once(__DIR__ . '/../config.php');
         // 5️⃣ Upload banner images
         $banner_img  = upload_to_supabase($_FILES['banner_img'] ?? null, $project_id, 'banner', $bucket_name);
         $quote_img   = upload_to_supabase($_FILES['quote_img']  ?? null, $project_id, 'banner', $bucket_name);
-        $profile_img = upload_to_supabase($_FILES['profile_img']?? null, $project_id, 'banner', $bucket_name);
 
         // Upload circle images
         $circle_imgs = [];
@@ -46,13 +45,13 @@ require_once(__DIR__ . '/../config.php');
             INSERT INTO project_banner (
                 project_id, show_title, description,
                 emoji1, genre1, emoji2, genre2, emoji3, genre3, emoji4, genre4, emoji5, genre5,
-                banner_img, quote_img, profile_img,
+                banner_img, quote_img,
                 circle_img_1, circle_img_2, circle_img_3, circle_img_4, circle_img_5
             )
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         ");
         $stmt->bind_param(
-            "issssssssssssssssssss",
+            "isssssssssssssssssss",
             $project_id,
             $show_title,
             $quote,
@@ -61,7 +60,7 @@ require_once(__DIR__ . '/../config.php');
             $emojis[3], $genres[3],
             $emojis[4], $genres[4],
             $emojis[5], $genres[5],
-            $banner_img, $quote_img, $profile_img,
+            $banner_img, $quote_img,
             $circle_imgs[1], $circle_imgs[2], $circle_imgs[3], $circle_imgs[4], $circle_imgs[5]
         );
 
@@ -73,7 +72,6 @@ require_once(__DIR__ . '/../config.php');
         $_SESSION['user_type']        = $user_type;
         $_SESSION['banner_img']   = $banner_img;
         $_SESSION['quote_img']    = $quote_img;
-        $_SESSION['profile_img']  = $profile_img;
         for ($i = 1; $i <= 5; $i++) {
             $_SESSION["emoji$i"]       = $emojis[$i];
             $_SESSION["genre$i"]       = $genres[$i];

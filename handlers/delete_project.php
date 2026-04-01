@@ -1,93 +1,58 @@
 <?php
 require_once(__DIR__ . '/../config.php');
 
-/* ============================
-   DELETE PROJECT
-============================ */
+$user_id = $_SESSION['user_id'] ?? null;
+$project_id = $_POST['project_id'] ?? null;
+$action = $_POST['action'] ?? null;
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: ../pages/projects.php");
+if (!$user_id) {
+    die("Not logged in.");
+}
+
+if (!$project_id) {
+    die("Project ID missing.");
+}
+
+if (!$action) {
+    die("Action missing.");
+}
+
+// EDIT BANNER
+if ($_POST['action'] === 'edit_banner') {
+    header("Location: " . BASE_URL . "pages/more_info.php?project_id=" . $_POST['project_id']);
     exit;
 }
 
-$user_id    = $_SESSION['user_id']    ?? null;
-$project_id = $_SESSION['project_id'] ?? null;
+// DELETE PROJECT
+if ($action === 'delete_project') {
 
-if (!$user_id || !$project_id) {
-    die("Unauthorized.");
-}
+    $check = $conn->prepare("
+        SELECT * FROM project_users
+        WHERE project_id = ? AND user_id = ? AND role = 'Owner'
+    ");
 
-/* ============================
-   VERIFY OWNERSHIP
-============================ */
+    $check->bind_param("ii", $project_id, $user_id);
+    $check->execute();
 
-$check = $conn->prepare("
-    SELECT 1 FROM project_users
-    WHERE project_id = ? AND user_id = ? AND role = 'Owner'
-");
-$check->bind_param("ii", $project_id, $user_id);
-$check->execute();
+    $result = $check->get_result();
 
-if ($check->get_result()->num_rows === 0) {
-    die("Permission denied.");
-}
+    if ($result->num_rows === 0) {
+        die("Permission denied.");
+    }
 
-/* ============================
-   DELETE DATABASE RECORDS
-============================ */
+    // Delete related records
+    $tables = ['user_files','project_banner','project_users','projects'];
 
-// Order matters (FK safety)
+    foreach ($tables as $table) {
 
-$stmt = $conn->prepare("DELETE FROM user_files WHERE project_id = ?");
-$stmt->bind_param("i", $project_id);
-$stmt->execute();
+        $stmt = $conn->prepare("DELETE FROM $table WHERE project_id = ?");
+        $stmt->bind_param("i", $project_id);
+        $stmt->execute();
+        $stmt->close();
 
-$stmt = $conn->prepare("DELETE FROM project_banner WHERE project_id = ?");
-$stmt->bind_param("i", $project_id);
-$stmt->execute();
+    }
 
-$stmt = $conn->prepare("DELETE FROM project_users WHERE project_id = ?");
-$stmt->bind_param("i", $project_id);
-$stmt->execute();
-
-$stmt = $conn->prepare("DELETE FROM projects WHERE project_id = ?");
-$stmt->bind_param("i", $project_id);
-$stmt->execute();
-
-/* ============================
-   DELETE SUPABASE BUCKET
-============================ */
-
-$bucket_name = "project_" . $project_id;
-delete_supabase_bucket($bucket_name);
-
-/* ============================
-   CLEAN SESSION
-============================ */
-
-unset(
-    $_SESSION['project_id'],
-    $_SESSION['show_title'],
-    $_SESSION['quote'],
-    $_SESSION['banner_img'],
-    $_SESSION['quote_img'],
-    $_SESSION['profile_img']
-);
-
-/* ============================
-   REDIRECT
-============================ */
-
-header("Location: ../pages/projects.php");
-exit;
-
-
-/* ============================
-   HELPERS
-============================ */
-
-function delete_supabase_bucket($bucket_name) {
-    $url = rtrim(SUPABASE_URL, '/') . "/storage/v1/bucket/" . $bucket_name;
+    $url = rtrim(SUPABASE_URL, '/') . "/storage/v1/bucket/" . "project_" . $project_id;
 
     $ch = curl_init($url);
     curl_setopt_array($ch, [
@@ -99,7 +64,19 @@ function delete_supabase_bucket($bucket_name) {
         ]
     ]);
 
-    curl_exec($ch);
+    $response = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
     curl_close($ch);
+
+    if ($http_code !== 200 && $http_code !== 204) {
+        error_log("Supabase bucket deletion failed for $bucket_name: HTTP $http_code, response: $response");
+    }
+
+    header("Location: ../pages/projects.php");
+    exit;
 }
+
+// Fallback
+die("Unknown action.");
 ?>

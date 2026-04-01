@@ -58,6 +58,11 @@ h1 {
     flex-direction: column;
 }
 
+.version-right {
+    display: flex;
+    flex-direction: row;
+}
+
 .version-number {
     font-size: 20px;
     font-weight: bold;

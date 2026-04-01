@@ -1,10 +1,6 @@
 <?php
 require_once __DIR__ . '/../config.php';
 
-/* ============================
-   VALIDATE INPUT
-============================ */
-
 $user_id = $_SESSION['user_id'] ?? 0;
 $file_id = isset($_GET['file_id']) ? (int) $_GET['file_id'] : 0;
 
@@ -14,61 +10,34 @@ if (!$user_id || !$file_id) {
 }
 
 /* ============================
-   1. FETCH MAIN FILE
+   FETCH ALL VERSIONS (INCLUDING CURRENT FILE)
 ============================ */
 
 $stmt = $conn->prepare("
-    SELECT 
-        file_id,
-        path,
-        uploaded_at,
-        original_name,
-        category
-    FROM user_files
-    WHERE file_id = ? AND user_id = ?
-    LIMIT 1
+    SELECT path, uploaded_at FROM (
+        SELECT path, uploaded_at
+        FROM user_files
+        WHERE file_id = ? AND user_id = ?
+        
+        UNION ALL
+        
+        SELECT path, uploaded_at
+        FROM file_versions
+        WHERE file_id = ?
+    ) AS combined
+    ORDER BY uploaded_at DESC
 ");
-$stmt->bind_param("ii", $file_id, $user_id);
+$stmt->bind_param("iii", $file_id, $user_id, $file_id);
 $stmt->execute();
-
 $result = $stmt->get_result();
-$file = $result->fetch_assoc();
-
-$stmt->close();
-
-if (!$file) {
-    echo "File not found or access denied.";
-    exit;
-}
-
-$file_path     = $file['path'];
-$uploaded_at   = $file['uploaded_at'];
-$original_name = $file['original_name'];
-$category      = $file['category'];
-
-/* ============================
-   2. FETCH FILE VERSIONS
-============================ */
 
 $versions = [];
-
-$stmt = $conn->prepare("
-    SELECT path, uploaded_at
-    FROM file_versions
-    WHERE file_id = ?
-    ORDER BY version_id ASC
-");
-$stmt->bind_param("i", $file_id);
-$stmt->execute();
-
-$result = $stmt->get_result();
-
 $version_number = 1;
 
 while ($row = $result->fetch_assoc()) {
     $versions[] = [
         "version" => $version_number++,
-        "date"    => date("M d, Y g:i A", strtotime($row['uploaded_at'])),
+        "date"    => date("M d, Y g:i:s A", strtotime($row['uploaded_at'])),
         "url"     => rtrim(SUPABASE_URL, '/') . "/storage/v1/object/public/" . $row['path']
     ];
 }
@@ -76,14 +45,19 @@ while ($row = $result->fetch_assoc()) {
 $stmt->close();
 
 /* ============================
-   3. ADD CURRENT FILE AS LATEST
+   FETCH MAIN FILE INFO
 ============================ */
 
-$versions[] = [
-    "version" => $version_number,
-    "date"    => date("M d, Y", strtotime($uploaded_at)),
-    "url"     => rtrim(SUPABASE_URL, '/') . "/storage/v1/object/public/" . $file_path
-];
+$stmt = $conn->prepare("
+    SELECT original_name, category
+    FROM user_files
+    WHERE file_id = ? AND user_id = ?
+    LIMIT 1
+");
+$stmt->bind_param("ii", $file_id, $user_id);
+$stmt->execute();
+$file_info = $stmt->get_result()->fetch_assoc();
+$stmt->close();
 ?>
 
 <div class="container">
@@ -91,28 +65,24 @@ $versions[] = [
 
     <div class="file-info">
         <div class="file-info-left">
-            <strong>File:</strong> <?= htmlspecialchars($original_name) ?><br>
-            <strong>Latest Version:</strong> V<?= count($versions) ?><br>
+            <strong>Latest Version:</strong> V<?= $versions[0]['version'] ?><br>
+            <strong>Original/ First Version:</strong> V<?= end($versions)['version'] ?><br>
         </div>
         <div class="file-info-right">
-            <?php if ($category === 'images'): ?>
-                <img src="<?= $versions[count($versions)-1]['url'] ?>" alt="<?= htmlspecialchars($original_name) ?>">
-
+            <?php
+            $category = $file_info['category'];
+            if ($category === 'images'): ?>
+                <img src="<?= $versions[0]['url'] ?>" alt="<?= htmlspecialchars($file_info['original_name']) ?>">
             <?php elseif ($category === 'models'): ?>
                 <img src="<?= IMG_PATH ?>model_icon.png" alt="model_icon">
-
             <?php elseif ($category === 'documents'): ?>
-                <img src="<?= IMG_PATH ?>document_icon.png" alt="model_icon">
-
+                <img src="<?= IMG_PATH ?>document_icon.png" alt="document_icon">
             <?php elseif ($category === 'audio'): ?>
-                <img src="<?= IMG_PATH ?>audio_icon.png" alt="model_icon">
-
+                <img src="<?= IMG_PATH ?>audio_icon.png" alt="audio_icon">
             <?php elseif ($category === 'videos'): ?>
-                <img src="<?= IMG_PATH ?>video_icon.png" alt="model_icon">
-            
-            <?php elseif ($category === 'other'): ?>
-                <img src="<?= IMG_PATH ?>audio_icon.png" alt="model_icon">
-
+                <img src="<?= IMG_PATH ?>video_icon.png" alt="video_icon">
+            <?php else: ?>
+                <img src="<?= IMG_PATH ?>other_icon.png" alt="other_icon">
             <?php endif; ?>
         </div>
     </div>
@@ -125,7 +95,10 @@ $versions[] = [
                     Uploaded on <?= $version["date"] ?>
                 </span>
             </div>
-            <a href="<?= $version["url"] ?>" class="download-btn" target="_blank">Download</a>
+            <div class="version-right">
+                <a href="<?= $version["url"] ?>" class="download-btn" target="_blank">Delete</a> &emsp;
+                <a href="<?= $version["url"] ?>" class="download-btn" target="_blank">Download</a>
+            </div>
         </div>
     <?php endforeach; ?>
 </div>

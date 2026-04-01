@@ -106,7 +106,7 @@ while ($row = $result->fetch_assoc()) {
                     <?php endif; ?>
 
                     <h1 class="file-name"><?= htmlspecialchars($file['original_name']); ?><br><br></h1>
-                    <h3 class="person-name">By <?= htmlspecialchars($file['user_name'] ?? $_SESSION['user_name']); ?><br><br></h3>
+                    <h3 class="person-name">By <?= htmlspecialchars($file['user_name']); ?><br><br></h3>
 
                     <div class="action-buttons">
                         <a href="<?= htmlspecialchars($file['url']); ?>" download target="_blank">

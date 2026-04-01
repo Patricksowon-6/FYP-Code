@@ -28,7 +28,7 @@ require_once(__DIR__ . '/../config.php');
 <body id="body">
     <center>
         <h2 class="welcome" style="max-width: 750px;">
-            Let's make a banner for your work! Below is a template to follow. Don't worry, it can all be changed later!
+            Let's make a banner for your work! Follow the template to the right to build it! <!-- Make bigger -->
         </h2>
     </center>
     
@@ -44,5 +44,6 @@ require_once(__DIR__ . '/../config.php');
     
     <script src="<?= JS_PATH; ?>spinner.js"></script>
     <script src="<?= JS_PATH; ?>banner.js"></script>
+    <script src="<?= JS_PATH ?>banner_form.js"></script>
 </body>
 </html>

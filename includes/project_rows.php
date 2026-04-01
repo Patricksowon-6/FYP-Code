@@ -53,7 +53,10 @@ function supabase_public_url($project_id, $file_path) {
 }
 ?>
 
-<h1>Project Dashboard</h1>
+<h1>Project Dashboard <br><br></h1>
+
+<a href="<?= BASE_URL ?>handlers/reset_form.php" class="open-btn">+ Create New Project</a>
+<br><br><br><br><br><br>
 
 <div class="card-container">
     <?php while ($card = $result->fetch_assoc()):
@@ -83,4 +86,5 @@ function supabase_public_url($project_id, $file_path) {
     <?php endwhile; ?>
 </div>
 
-<a href="<?= BASE_URL ?>handlers/reset_form.php" class="open-btn">+ Create New Project</a>
+<!-- Put projects that are due to be deleted -->
+

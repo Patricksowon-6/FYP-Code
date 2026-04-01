@@ -27,8 +27,8 @@
     define('PAGES_URL', BASE_URL . 'pages/');
 
     // ⚙️ Replace these with your own project details:
-    define('SUPABASE_URL', 'https://oqvgaisaqwkgxtqgqesn.supabase.co');
-    define('SUPABASE_SERVICE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xdmdhaXNhcXdrZ3h0cWdxZXNuIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MDkxMzg4MCwiZXhwIjoyMDc2NDg5ODgwfQ.xHPV_CYBGCJACa58w_bpzEpcCg7z6KLe7vEQoZ1Ovr0');
+    define('SUPABASE_URL', 'https://roojdhvcciclsvleryyv.supabase.co');
+    define('SUPABASE_SERVICE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJvb2pkaHZjY2ljbHN2bGVyeXl2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Mjk2ODAxMCwiZXhwIjoyMDg4NTQ0MDEwfQ.MEg7Qzy5-u0WOXCJz3v01yUGLEI-zqyoXzpN469L0ng');
     
 
 
@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS users (
     user_name VARCHAR(40) NOT NULL,
     email VARCHAR(30) UNIQUE NOT NULL,
     password TEXT NOT NULL,
+    profile_pic VARCHAR(255),
     date_of_reg TIMESTAMP DEFAULT NOW() NOT NULL
 )");
 
@@ -248,5 +249,10 @@ CREATE TABLE IF NOT EXISTS shoot_date_assets (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );");
 
+
+
+
+// Tables to add: recycling bin for files and projects. Make FK tables
+// For assets, use the same format as the pending tab
 
 ?>

@@ -106,10 +106,33 @@ for ($i=1; $i<=5; $i++) {
             <div class="listFigure">
                 <div class="item animationTop delay-16">
                     <div class="buttons">
-                        <button id="edit">Edit Banner</button>
-                        &emsp; &emsp;
-                        <button id="openDeleteModal" type="button">Delete Project</button>
+                        <form id="projectForm" method="POST" action="<?= BASE_URL ?>handlers/delete_project.php">
+                            <input type="hidden" name="project_id" value="<?= $project_id ?>">
+
+                            <!-- Edit Banner button -->
+                            <button type="submit" name="action" value="edit_banner" id="edit">
+                                Edit Banner
+                            </button>
+
+                            &emsp;&emsp;
+
+                            <!-- Delete Project button opens modal -->
+                            <button type="button" id="openDeleteModal">
+                                Delete Project
+                            </button>
+                        </form>
                     </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div id="deleteModal" class="modal-overlay" style="display:none;">
+                <div class="modal-box">
+                    <h3>Are you sure?</h3>
+                    <p>This project will be permanently deleted in one week! After that, it's gone!</p>
+
+                    <button type="button" id="cancelBtn">Cancel</button>
+                    <button type="button" id="confirmDeleteBtn" class="danger">Yes, Delete Project</button>
                 </div>
             </div>
         <?php endif; ?>
@@ -148,17 +171,5 @@ for ($i=1; $i<=5; $i++) {
                 </li>
             </ul>
         </div>
-    </div>
-</div>
-
-<div id="deleteModal" class="modal-overlay" style="display:none;">
-    <div class="modal-box">
-        <h3>Delete Project?</h3>
-        <p>This project will be permanently deleted in one week! After that, it's gone!</p>
-        <form method="POST" action="<?= BASE_URL ?>handlers/delete_project.php">
-            <button type="button">Cancel</button>
-            <button type="submit" class="danger">Yes, Delete Project</button>
-        </form>
-
     </div>
 </div>

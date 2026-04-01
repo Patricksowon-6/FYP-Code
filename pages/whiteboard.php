@@ -14,7 +14,7 @@
 </head>
 <body>
     <?php 
-        include (INCLUDES_PATH . "project_header.php");
+        include (INCLUDES_PATH . "logged_in_header.php");
         include (INCLUDES_PATH . "sticky_notes.php");
     ?>
     

@@ -49,10 +49,6 @@ nav ul li a {
     transition: 0.5s;
 }
 
-nav ul li a:hover {
-    background-color: rgb(38, 158, 198);
-}
-
 .header__button {
     width: var(--header-height);
     background: none;
@@ -68,7 +64,7 @@ nav ul li a:hover {
     z-index: 1100;
     height: 100vh;
     width: 250px;
-    background: #ffffff;
+    background: #2b2b2b;
     transform: translateX(-250px);
     transition: transform 0.3s;
 }
@@ -80,7 +76,7 @@ nav ul li a:hover {
 .nav__link {
     display: flex;
     align-items: center;
-    color: #666;
+    color: #fff;
     font-weight: bold;
     text-decoration: none;
     padding: 12px 15px;
@@ -92,7 +88,7 @@ nav ul li a:hover {
 
 .nav__link--active,
 .nav__link:hover {
-    background: #eeeeee;
+    background: #8e8e8e;
 }
 
 .nav__overlay {

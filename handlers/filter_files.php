@@ -8,6 +8,7 @@ $file_name   = $_GET['file_name']   ?? null;
 $user_name   = $_GET['user_name']   ?? null;
 $extension   = $_GET['extension']   ?? null;
 $asset_type  = $_GET['asset_type']  ?? null;
+$project_id = $_SESSION['project_id'];
 
 // -------------------- BASE QUERY --------------------
 $sql = "SELECT 
@@ -19,8 +20,10 @@ $sql = "SELECT
             u.username AS user_name
         FROM user_files uf
         JOIN users u ON uf.user_id = u.user_id
-        WHERE uf.file_approval = 'approved'";
+        WHERE uf.file_approval = 'approved'
+        AND uf.project_id = ?";
 
+$stmt->bind_param("i", $project_id);
 $params = [];
 $types = "";
 
@@ -52,6 +55,7 @@ if (!empty($asset_type)) {
 $sql .= " ORDER BY uf.uploaded_at DESC";
 
 // -------------------- RUN QUERY --------------------
+
 $stmt = $conn->prepare($sql);
 
 if ($types !== "") {

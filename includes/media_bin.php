@@ -149,11 +149,11 @@ $result = $stmt->get_result();
                             <input type="hidden" name="file_id" value="<?= $img['file_id'] ?>">
 
                             <button type="submit" name="approved" id="approve">
-                                Approve
+                                Recover
                             </button>
                             &emsp;
                             <button type="submit" name="rejected" id="reject">
-                                Reject
+                                Delete
                             </button>
                         </form>
                     </div>
@@ -169,9 +169,9 @@ $result = $stmt->get_result();
     <!-- EMPTY STATE -->
     <div class="empty-state">
         <div class="empty-box">
-            <i class="fa-solid fa-photo-film empty-icon"></i>
+            <i class="fa-solid fa-trash empty-icon"></i>
 
-            <h2>No pending assets</h2>
+            <h2>Nothing in the bin</h2>
             <p>Add your first asset to get started with this project.</p>
 
             <a href="<?= PAGES_URL ?>file_upload.php?project_id=<?= $project_id ?>" class="add-asset-btn">

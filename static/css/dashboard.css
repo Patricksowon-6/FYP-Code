@@ -1,9 +1,3 @@
-/* Hero section */
-
-*{
-    font-family: monospace;
-}
-
 .hero {
     background: linear-gradient(135deg, #023859, #011c40);
     color: white;

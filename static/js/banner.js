@@ -1,19 +1,34 @@
 const modal = document.getElementById('deleteModal');
 const openBtn = document.getElementById('openDeleteModal');
-const cancelBtn = modal.querySelector('button[type="button"]');
+const cancelBtn = document.getElementById('cancelBtn');
+const confirmBtn = document.getElementById('confirmDeleteBtn');
+const form = document.getElementById('projectForm');
 
-// Open modal
+// Open modal when delete button is clicked
 openBtn.addEventListener('click', (e) => {
-    e.preventDefault(); // only here
+    e.preventDefault();
     modal.style.display = 'flex';
 });
 
-// Close modal (Cancel button)
+// Cancel button closes modal
 cancelBtn.addEventListener('click', () => {
     modal.style.display = 'none';
 });
 
-// Close when clicking outside modal box
+// Confirm Delete submits form with action
+confirmBtn.addEventListener('click', () => {
+    // Add hidden input for action=delete_project
+    let actionInput = document.createElement('input');
+    actionInput.type = 'hidden';
+    actionInput.name = 'action';
+    actionInput.value = 'delete_project';
+    form.appendChild(actionInput);
+
+    // Submit the form
+    form.submit();
+});
+
+// Close modal when clicking outside the box
 modal.addEventListener('click', (e) => {
     if (e.target === modal) {
         modal.style.display = 'none';

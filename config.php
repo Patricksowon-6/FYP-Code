@@ -28,7 +28,7 @@
 
     // ⚙️ Replace these with your own project details:
     define('SUPABASE_URL', 'https://roojdhvcciclsvleryyv.supabase.co');
-    define('SUPABASE_SERVICE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJvb2pkaHZjY2ljbHN2bGVyeXl2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Mjk2ODAxMCwiZXhwIjoyMDg4NTQ0MDEwfQ.MEg7Qzy5-u0WOXCJz3v01yUGLEI-zqyoXzpN469L0ng');
+    define('SUPABASE_SERVICE_KEY', 'BLANK');
     
 
 

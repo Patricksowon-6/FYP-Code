@@ -141,7 +141,8 @@ for ($i=1; $i<=5; $i++) {
     <div class="right">
         <div class="director animationTop delay-18">
             <button class="editBtn BTN" id="openModalBtn">
-                <img src="<?= supabase_public_url($project_bucket, $banner['profile_img']); ?>" alt="Profile">
+                <!-- <img src="<?= supabase_public_url($project_bucket, $banner['profile_img']); ?>" alt="Profile"> -->
+                <img src="../media/images/Me.jpg" alt="">
             </button>
 
             <div class="title"><?= htmlspecialchars($_SESSION['user_name']) ?></div>

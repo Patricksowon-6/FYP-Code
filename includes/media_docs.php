@@ -21,7 +21,7 @@ $result = $stmt->get_result();
         <?php if ($doc['file_approval'] === 'approved'): ?>
             <div class="video" style="margin-top: 100px;"data-asset-id="<?= $doc['file_id'] ?>">
                 <center>
-                    <img src="<?= IMG_PATH ?>document_icon.png" class="thumbnail-image" alt="File">
+                    <img src="<?= IMG_PATH ?>document_icon.png" class="thumbnail-image documentPreviewBtn" alt="File" data-document="<?= htmlspecialchars($url) ?>">
 
                     <h1 class="file-name">
                         <?= htmlspecialchars($doc['original_name']); ?><br><br>
@@ -86,3 +86,60 @@ $result = $stmt->get_result();
         </div>
     </div>
 </div>
+
+
+<!-- DOCUMENT MODAL -->
+<div id="documentModal" class="modal">
+    <div class="modal-content">
+
+        <span class="close-doc">&times;</span>
+
+        <h2>📄 Document Preview</h2>
+
+        <iframe id="documentViewer" style="border:none;"></iframe>
+
+    </div>
+</div>
+
+<script>
+
+// Document Preview
+document.addEventListener('DOMContentLoaded', () => {
+
+    const documentModal = document.getElementById("documentModal");
+    const documentViewer = document.getElementById("documentViewer");
+    const closeDocument = documentModal.querySelector(".close-doc");
+
+    document.querySelectorAll(".documentPreviewBtn").forEach(btn => {
+
+        btn.addEventListener("click", () => {
+
+            const src = btn.dataset.document;
+
+            if (!src) return;
+
+            documentViewer.src = src;
+
+            documentModal.style.display = "flex";
+        });
+    });
+
+    closeDocument.onclick = () => {
+
+        documentModal.style.display = "none";
+
+        documentViewer.src = "";
+    };
+
+    window.addEventListener("click", e => {
+
+        if (e.target === documentModal) {
+
+            documentModal.style.display = "none";
+
+            documentViewer.src = "";
+        }
+    });
+});
+
+</script>

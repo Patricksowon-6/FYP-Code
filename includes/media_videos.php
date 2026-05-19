@@ -83,4 +83,3 @@ $result = $stmt->get_result();
     </div>
 </div>
 
-<script src="<?= JS_PATH ?>video.js"></script>

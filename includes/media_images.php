@@ -21,7 +21,7 @@ $result = $stmt->get_result();
         <?php if ($img['file_approval'] === 'approved'): ?>
             <div class="video" data-asset-id="<?= $img['file_id'] ?>">
                 <center>
-                    <img src="<?= $url ?>" class="thumbnail-image" alt="<?= htmlspecialchars($img['original_name']); ?>">
+                    <img  src="<?= $url ?>" class="thumbnail-image imagePreviewBtn" alt="<?= htmlspecialchars($img['original_name']); ?>" data-image="<?= htmlspecialchars($url) ?>">
 
                     <h1 class="file-name">
                         <?= htmlspecialchars($img['original_name']); ?><br><br>
@@ -85,3 +85,60 @@ $result = $stmt->get_result();
         </div>
     </div>
 </div>
+
+<!-- IMAGE MODAL -->
+<div id="imageModal" class="modal">
+
+    <div class="image-modal-content">
+
+        <span class="close-image">&times;</span>
+
+        <img id="imageViewer" src="" alt="Preview Image">
+
+    </div>
+
+</div>
+
+<script>
+
+// Image Preview
+document.addEventListener('DOMContentLoaded', () => {
+
+    const imageModal = document.getElementById("imageModal");
+    const imageViewer = document.getElementById("imageViewer");
+    const closeImage = document.querySelector(".close-image");
+
+    document.querySelectorAll(".imagePreviewBtn").forEach(img => {
+
+        img.addEventListener("click", () => {
+
+            const src = img.dataset.image;
+
+            if (!src) return;
+
+            imageViewer.src = src;
+
+            imageModal.style.display = "flex";
+        });
+    });
+
+    closeImage.onclick = () => {
+
+        imageModal.style.display = "none";
+
+        imageViewer.src = "";
+    };
+
+    window.addEventListener("click", e => {
+
+        if (e.target === imageModal) {
+
+            imageModal.style.display = "none";
+
+            imageViewer.src = "";
+        }
+    });
+
+});
+
+</script>
